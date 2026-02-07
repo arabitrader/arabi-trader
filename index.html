@@ -11,7 +11,6 @@
     
     <style>
         body { font-family: 'Cairo', sans-serif; }
-        /* تخصيص دقيق للألوان لمحاكاة المنصات العالمية */
         .bg-portal-dark { background-color: #0b121e; }
         .bg-portal-card { background-color: #151e2d; }
         .text-gold { color: #d4af37; }
@@ -34,7 +33,8 @@
                 {"proName": "FX:EURUSD", "title": "اليورو دولار"},
                 {"proName": "FX:GBPUSD", "title": "الاسترليني"},
                 {"proName": "BITSTAMP:BTCUSD", "title": "بيتكوين"},
-                {"proName": "TVC:USOIL", "title": "النفط"}
+                {"proName": "TVC:USOIL", "title": "النفط"},
+                {"proName": "TADAWUL:TASI", "title": "تاسي"}
             ],
             "showSymbolLogo": true,
             "colorTheme": "dark",
@@ -58,13 +58,13 @@
 
             <nav class="hidden md:flex gap-8 font-medium">
                 <a href="#" class="text-white hover:text-gold transition">الرئيسية</a>
-                <a href="#" class="hover:text-gold transition">أخبار السوق</a>
-                <a href="#" class="hover:text-gold transition">توصيات الذهب</a>
-                <a href="#" class="hover:text-gold transition">الأجندة الاقتصادية</a>
-                <a href="#" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">ابدأ التداول</a>
+                <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="hover:text-gold transition">تحليلاتنا</a>
+                <a href="https://t.me/arabi_trader" target="_blank" class="hover:text-gold transition">توصيات الذهب</a>
+                <a href="#calendar" class="hover:text-gold transition">الأجندة الاقتصادية</a>
+                <a href="https://t.me/arabi_trader" target="_blank" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">انضم للقناة</a>
             </nav>
 
-            <button class="md:hidden text-2xl">☰</button>
+            <button class="md:hidden text-2xl text-white">☰</button>
         </div>
     </header>
 
@@ -74,8 +74,8 @@
             
             <div class="bg-portal-card rounded-lg overflow-hidden border border-gray-700 shadow-xl h-[500px]">
                 <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800">
-                    <h2 class="font-bold text-white flex items-center gap-2"><span class="text-gold">●</span> التحليل الفني المباشر (XAUUSD)</h2>
-                    <span class="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded">السوق مفتوح</span>
+                    <h2 class="font-bold text-white flex items-center gap-2"><span class="text-gold">●</span> الرسم البياني (XAUUSD)</h2>
+                    <span class="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded">مباشر</span>
                 </div>
                 <div class="h-full pb-14">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
@@ -101,24 +101,32 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-portal-card p-5 rounded border border-gray-700 hover:border-gold transition cursor-pointer">
-                    <span class="text-xs text-yellow-500 font-bold">عاجل</span>
-                    <h3 class="text-lg font-bold text-white mt-1">الذهب يخترق مستويات المقاومة 2700 دولار</h3>
-                    <p class="text-sm text-gray-400 mt-2">تحليل فني يوضح أسباب الصعود القوي للمعدن الأصفر وسط التوترات الجيوسياسية...</p>
-                </div>
-                <div class="bg-portal-card p-5 rounded border border-gray-700 hover:border-gold transition cursor-pointer">
-                    <span class="text-xs text-blue-500 font-bold">الفيدرالي</span>
-                    <h3 class="text-lg font-bold text-white mt-1">توقعات الفائدة الأمريكية لهذا الأسبوع</h3>
-                    <p class="text-sm text-gray-400 mt-2">يترقب المستثمرون بيانات التضخم التي ستحدد مسار الدولار القادم...</p>
+            <div class="bg-portal-card rounded-lg overflow-hidden border border-gray-700">
+                <div class="p-4 border-b border-gray-700 font-bold text-white">📰 آخر أخبار الذهب والأسواق</div>
+                <div class="h-[400px]">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                        {
+                        "feedMode": "symbol",
+                        "symbol": "OANDA:XAUUSD",
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular",
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "ar_AE"
+                        }
+                        </script>
+                    </div>
                 </div>
             </div>
         </main>
 
         <aside class="lg:col-span-4 space-y-6">
             
-            <div class="bg-portal-card rounded-lg border border-gray-700 overflow-hidden">
-                <div class="p-3 bg-gray-800 border-b border-gray-700 font-bold text-white">📅 أهم الأحداث الاقتصادية</div>
+            <div id="calendar" class="bg-portal-card rounded-lg border border-gray-700 overflow-hidden">
+                <div class="p-3 bg-gray-800 border-b border-gray-700 font-bold text-white">📅 أهم الأحداث (توقيت الرياض)</div>
                 <div class="h-[400px]">
                     <div class="tradingview-widget-container">
                         <div class="tradingview-widget-container__widget"></div>
@@ -129,7 +137,7 @@
                         "width": "100%",
                         "height": "100%",
                         "locale": "ar_AE",
-                        "importanceFilter": "-1,0,1",
+                        "importanceFilter": "0,1", 
                         "currencyFilter": "USD,EUR,GBP"
                         }
                         </script>
@@ -138,13 +146,19 @@
             </div>
 
             <div class="bg-gradient-to-br from-yellow-700 to-yellow-900 rounded-lg p-6 text-center text-white">
-                <h3 class="font-bold text-xl mb-4">انضم لمجتمع المتداولين</h3>
+                <h3 class="font-bold text-xl mb-4">مجتمع عربي تريدر</h3>
                 <div class="grid grid-cols-2 gap-3">
-                    <a href="https://t.me/arabitrader" class="bg-white/20 p-2 rounded hover:bg-white/30 transition flex items-center justify-center gap-2">
-                        <span>📱</span> Telegram
+                    <a href="https://t.me/arabi_trader" target="_blank" class="bg-blue-500/80 p-2 rounded hover:bg-blue-500 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Telegram
                     </a>
-                    <a href="https://twitter.com/arabitrader" class="bg-black/40 p-2 rounded hover:bg-black/60 transition flex items-center justify-center gap-2">
-                        <span>❌</span> X Platform
+                    <a href="https://x.com/arabi_trader" target="_blank" class="bg-black/60 p-2 rounded hover:bg-black transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Platform X
+                    </a>
+                    <a href="https://www.snapchat.com/add/arabi.trader" target="_blank" class="bg-yellow-400/90 text-black p-2 rounded hover:bg-yellow-400 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Snapchat
+                    </a>
+                    <a href="https://www.tiktok.com/@arabi_trader" target="_blank" class="bg-pink-600/80 p-2 rounded hover:bg-pink-600 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        TikTok
                     </a>
                 </div>
             </div>
@@ -156,23 +170,34 @@
             <div>
                 <h4 class="text-white font-bold text-lg mb-4">عربي تريدر</h4>
                 <p class="text-gray-500 leading-relaxed">منصة إخبارية وتحليلية متكاملة تهدف لتمكين المستثمر العربي بأدوات احترافية ومعلومات دقيقة.</p>
+                <div class="mt-4 pt-4 border-t border-gray-800">
+                    <p class="text-xs text-gray-600">Powered by:</p>
+                    <p class="text-gray-400 font-bold tracking-wider">NADEEM DIGITAL CAPITAL LLC</p>
+                    <p class="text-[10px] text-gray-600">United States</p>
+                </div>
             </div>
             <div>
                 <h4 class="text-white font-bold text-lg mb-4">تواصل معنا</h4>
                 <ul class="space-y-2 text-gray-400">
                     <li>📧 <a href="mailto:Info@arabitrader.org" class="hover:text-gold">Info@arabitrader.org</a></li>
-                    <li>📷 <a href="https://instagram.com/arabitrader" class="hover:text-gold">Instagram</a></li>
-                    <li>🎵 <a href="https://tiktok.com/@arabitrader" class="hover:text-gold">TikTok</a></li>
-                    <li>📘 <a href="https://facebook.com/arabitrader" class="hover:text-gold">Facebook</a></li>
+                    <li>📊 <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="hover:text-gold">TradingView</a></li>
+                    <li>📷 <a href="https://instagram.com/arabi.trader" target="_blank" class="hover:text-gold">Instagram</a></li>
+                    <li>💼 <a href="https://www.linkedin.com/in/arabi.trader" target="_blank" class="hover:text-gold">LinkedIn</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold text-lg mb-4">إخلاء مسؤولية</h4>
-                <p class="text-gray-600 text-xs">التداول في الأسواق المالية ينطوي على مخاطر عالية. المعلومات المقدمة هنا هي لأغراض تعليمية وليست نصيحة استثمارية.</p>
+                <p class="text-gray-600 text-xs leading-relaxed">
+                    التداول في الأسواق المالية ينطوي على مخاطر عالية. المعلومات المقدمة على موقع 
+                    <span class="text-gray-500">Arabi Trader</span> هي لأغراض تعليمية فقط ولا تعتبر نصيحة استثمارية.
+                    الشركة غير مسؤولة عن أي قرارات تتخذ بناءً على هذه المعلومات.
+                </p>
             </div>
         </div>
-        <div class="text-center text-gray-700 text-xs mt-8 pt-4 border-t border-gray-900">
-            © 2026 Arabi Trader. All rights reserved.
+        
+        <div class="text-center text-gray-700 text-xs mt-8 pt-4 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center container mx-auto px-4">
+            <p>© 2026 Arabi Trader. All rights reserved.</p>
+            <p class="mt-2 md:mt-0">A Property of <span class="text-gray-500 font-bold">NADEEM DIGITAL CAPITAL LLC</span></p>
         </div>
     </footer>
 
