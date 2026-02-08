@@ -3,185 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربي تريدر | Arabi Trader - الذكاء المالي للأسواق</title>
-    <meta name="description" content="منصة التحليل المالي المتقدمة للمتداول العربي. بيانات لحظية، ذكاء اصطناعي، وتحليلات مؤسسية.">
+    <title>عربي تريدر | Arabi Trader - بوابتك للأسواق المالية</title>
+    <meta name="description" content="المصدر الأول للمتداول العربي في أسواق الذهب والعملات - تحليلات، أخبار، وأدوات احترافية.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: #e5e5e5; }
-        .bg-portal-card { background: linear-gradient(145deg, #111111, #0a0a0a); border: 1px solid #222; }
+        body { font-family: 'Cairo', sans-serif; }
+        .bg-portal-dark { background-color: #0b121e; }
+        .bg-portal-card { background-color: #151e2d; }
         .text-gold { color: #d4af37; }
-        .border-gold { border-color: #d4af37; }
-        .bg-gold { background-color: #d4af37; }
         
-        /* تأثيرات البطاقات */
-        .arabi-card {
-            transition: all 0.3s ease;
-        }
-        .arabi-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.7);
-            transform: translateY(-2px);
-        }
-
-        /* تصميم عداد السرعة (Sentiment Gauge) */
-        .gauge-wrapper { position: relative; width: 160px; height: 80px; margin: 0 auto; overflow: hidden; }
-        .gauge-arc {
-            width: 160px; height: 80px; background: #333;
-            border-top-left-radius: 100px; border-top-right-radius: 100px;
-            position: relative;
-        }
-        .gauge-fill {
-            position: absolute; top: 100%; left: 0; width: 100%; height: 100%;
-            background: #00c853; /* لون الشراء */
-            transform-origin: center top; transform: rotate(0.35turn); /* القيمة */
-            border-top-left-radius: 100px; border-top-right-radius: 100px;
-            transition: transform 1s ease-out;
-        }
-        .gauge-needle {
-            position: absolute; bottom: 0; left: 50%; width: 4px; height: 70px;
-            background: #fff; transform-origin: bottom center;
-            transform: rotate(-45deg); /* زاوية الإبرة */
-            z-index: 10; border-radius: 2px;
-            transition: transform 1s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
-        .gauge-center {
-            position: absolute; bottom: -8px; left: 50%; width: 16px; height: 16px;
-            background: #fff; border-radius: 50%; transform: translateX(-50%); z-index: 11;
-        }
-
-        /* تحسين التمرير */
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+        ::-webkit-scrollbar-track { background: #0b121e; }
+        ::-webkit-scrollbar-thumb { background: #2d3748; border-radius: 3px; }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #d4af37;
+            color: #0b121e;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.6);
+        }
+        .scroll-to-top.show { display: flex; }
     </style>
 </head>
-<body class="antialiased selection:bg-yellow-600 selection:text-white">
+<body class="bg-portal-dark text-gray-300 antialiased selection:bg-yellow-500 selection:text-black">
 
-    <div class="w-full h-10 bg-black border-b border-gray-900 sticky top-0 z-50">
+    <!-- شريط الأسعار العلوي -->
+    <div class="w-full h-12 bg-black border-b border-gray-800">
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
             "symbols": [
                 {"proName": "OANDA:XAUUSD", "title": "الذهب"},
-                {"proName": "FX:EURUSD", "title": "اليورو"},
+                {"proName": "FX:EURUSD", "title": "اليورو دولار"},
+                {"proName": "FX:GBPUSD", "title": "الاسترليني"},
                 {"proName": "BITSTAMP:BTCUSD", "title": "بيتكوين"},
-                {"proName": "FX:USDJPY", "title": "الين"},
-                {"proName": "TVC:USOIL", "title": "النفط"}
+                {"proName": "TVC:USOIL", "title": "النفط"},
+                {"proName": "TADAWUL:TASI", "title": "تاسي"}
             ],
             "showSymbolLogo": true,
             "colorTheme": "dark",
-            "isTransparent": false,
-            "displayMode": "compact",
+            "isTransparent": true,
+            "displayMode": "adaptive",
             "locale": "ar_AE"
             }
             </script>
         </div>
     </div>
 
-    <header class="bg-[#0a0a0a] border-b border-gray-800 relative">
-        <div class="container mx-auto px-4 h-24 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-lg flex items-center justify-center text-white font-bold text-2xl shadow-lg border border-yellow-500/30">
-                    <i class="fa-solid fa-chart-line"></i>
-                </div>
+    <!-- الهيدر -->
+    <header class="bg-portal-card border-b border-gray-700 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-yellow-600 rounded flex items-center justify-center text-white font-bold text-xl">AT</div>
                 <div>
-                    <h1 class="text-3xl font-extrabold text-white tracking-tight">عربي <span class="text-gold">تريدر</span></h1>
-                    <span class="text-[10px] text-gray-400 tracking-widest uppercase">Intelligent Market Data</span>
+                    <h1 class="text-2xl font-bold text-white leading-none">عربي <span class="text-gold">تريدر</span></h1>
+                    <span class="text-xs text-gray-500">Arabi Trader</span>
                 </div>
             </div>
 
-            <nav class="hidden md:flex gap-6 text-sm font-semibold">
-                <a href="#" class="text-gold border-b-2 border-gold pb-1">لوحة القيادة</a>
-                <a href="#analysis" class="text-gray-400 hover:text-white transition">تحليل الذهب</a>
-                <a href="#calendar" class="text-gray-400 hover:text-white transition">الأجندة</a>
-                <a href="https://nadeemcapital.com" class="text-gray-400 hover:text-white transition">الشركة الأم</a>
+            <nav class="hidden md:flex gap-8 font-medium">
+                <a href="#" class="text-white hover:text-gold transition">الرئيسية</a>
+                <a href="#features" class="hover:text-gold transition">المميزات</a>
+                <a href="#tools" class="hover:text-gold transition">أدوات التداول</a>
+                <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="hover:text-gold transition">تحليلاتنا</a>
+                <a href="https://t.me/arabi_trader" target="_blank" class="hover:text-gold transition">توصيات الذهب</a>
+                <a href="#calendar" class="hover:text-gold transition">الأجندة الاقتصادية</a>
+                <a href="https://t.me/arabi_trader" target="_blank" class="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition">انضم للقناة</a>
             </nav>
 
-            <a href="https://t.me/arabi_trader" target="_blank" class="hidden md:flex items-center gap-2 bg-white/5 hover:bg-gold hover:text-black border border-white/10 px-5 py-2 rounded-full transition-all text-sm font-bold">
-                <i class="fa-brands fa-telegram text-lg"></i> توصيات خاصة
-            </a>
+            <button class="md:hidden text-2xl text-white">☰</button>
         </div>
     </header>
 
-    <div class="container mx-auto px-4 py-8">
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            
-            <div class="bg-portal-card rounded-xl p-6 arabi-card text-center relative overflow-hidden">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-gold font-bold text-sm"><i class="fa-solid fa-gauge-high ml-2"></i>معنويات الذهب</h3>
-                    <span class="text-[10px] bg-green-500/10 text-green-400 px-2 py-1 rounded">تحديث لحظي</span>
-                </div>
-                
-                <div class="gauge-wrapper">
-                    <div class="gauge-arc">
-                        <div class="gauge-fill"></div>
-                        <div class="gauge-needle"></div>
-                        <div class="gauge-center"></div>
-                    </div>
-                </div>
-                
-                <h2 class="text-2xl font-bold text-green-500 mt-2">شراء قوي</h2>
-                <p class="text-xs text-gray-500 mt-1">بناءً على 14 مؤشر فني وسيولة مؤسسية</p>
-                
-                <div class="mt-4 grid grid-cols-2 gap-2 text-[10px]">
-                    <div class="bg-white/5 rounded py-1"><span class="block text-gray-400">المشترين</span><span class="text-green-400 font-bold">65%</span></div>
-                    <div class="bg-white/5 rounded py-1"><span class="block text-gray-400">البائعين</span><span class="text-red-400 font-bold">35%</span></div>
-                </div>
+    <!-- Hero Banner (جديد) -->
+    <section class="bg-gradient-to-r from-yellow-900/20 to-yellow-700/10 border-b border-gray-800 py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">مرجعك الأول في <span class="text-gold">عالم التداول</span></h2>
+            <p class="text-gray-400 text-lg mb-6 max-w-3xl mx-auto">تحليلات احترافية، أخبار فورية، وأدوات متقدمة لمساعدتك في اتخاذ قرارات استثمارية ذكية</p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="https://t.me/arabi_trader" target="_blank" class="px-6 py-3 bg-yellow-600 text-white font-bold rounded-lg hover:bg-yellow-700 transition">
+                    📱 انضم لقناتنا على تيليجرام
+                </a>
+                <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="px-6 py-3 border border-yellow-600 text-yellow-600 font-bold rounded-lg hover:bg-yellow-600 hover:text-white transition">
+                    📊 شاهد تحليلاتنا
+                </a>
             </div>
-
-            <div class="bg-portal-card rounded-xl p-6 arabi-card md:col-span-2">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-gold font-bold text-sm"><i class="fa-solid fa-list-check ml-2"></i>المستويات المفتاحية (XAU/USD)</h3>
-                    <div class="flex gap-2">
-                        <span class="text-xs font-mono bg-black px-2 py-1 rounded text-white border border-gray-800">S: $2035.10</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-3 gap-4 text-center items-center">
-                    <div class="space-y-2">
-                        <div class="text-[10px] text-red-500 font-bold">مقاومات (بيع)</div>
-                        <div class="bg-red-900/10 border border-red-900/20 py-2 rounded text-sm text-red-400 font-mono hover:bg-red-900/20 cursor-pointer">R3: 2065.00</div>
-                        <div class="bg-red-900/10 border border-red-900/20 py-2 rounded text-sm text-red-400 font-mono hover:bg-red-900/20 cursor-pointer">R2: 2052.50</div>
-                        <div class="bg-red-900/10 border border-red-900/20 py-2 rounded text-sm text-red-400 font-mono hover:bg-red-900/20 cursor-pointer">R1: 2045.80</div>
-                    </div>
-                    
-                    <div class="flex flex-col items-center justify-center h-full border-x border-white/5">
-                        <span class="text-[10px] text-gray-500 mb-1">النقطة المحورية</span>
-                        <span class="text-xl font-bold text-white font-mono">2038.10</span>
-                        <span class="text-[10px] text-gold mt-1">منطقة فصل الاتجاه</span>
-                        <i class="fa-solid fa-arrows-up-down text-gray-600 mt-2 text-xl animate-bounce"></i>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="text-[10px] text-green-500 font-bold">دعوم (شراء)</div>
-                        <div class="bg-green-900/10 border border-green-900/20 py-2 rounded text-sm text-green-400 font-mono hover:bg-green-900/20 cursor-pointer">S1: 2030.20</div>
-                        <div class="bg-green-900/10 border border-green-900/20 py-2 rounded text-sm text-green-400 font-mono hover:bg-green-900/20 cursor-pointer">S2: 2022.50</div>
-                        <div class="bg-green-900/10 border border-green-900/20 py-2 rounded text-sm text-green-400 font-mono hover:bg-green-900/20 cursor-pointer">S3: 2015.00</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- لماذا عربي تريدر؟ (جديد) -->
+    <section id="features" class="py-16 bg-portal-dark">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-white text-center mb-12">لماذا <span class="text-gold">عربي تريدر</span>؟</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bg-portal-card border border-gray-700 rounded-lg p-8 text-center hover:border-yellow-600 transition">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h4 class="text-xl font-bold text-white mb-3">تحليلات احترافية</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">تحليلات يومية للذهب والعملات من خبراء أسواق المال، مدعومة بأدوات TradingView الاحترافية</p>
+                </div>
+
+                <div class="bg-portal-card border border-gray-700 rounded-lg p-8 text-center hover:border-yellow-600 transition">
+                    <div class="text-5xl mb-4">⚡</div>
+                    <h4 class="text-xl font-bold text-white mb-3">بيانات فورية</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">أسعار حية للذهب والعملات والأسهم، مع تحديثات لحظية للأخبار الاقتصادية المؤثرة</p>
+                </div>
+
+                <div class="bg-portal-card border border-gray-700 rounded-lg p-8 text-center hover:border-yellow-600 transition">
+                    <div class="text-5xl mb-4">🎓</div>
+                    <h4 class="text-xl font-bold text-white mb-3">محتوى تعليمي</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">دورات ومقالات تعليمية لتطوير مهاراتك في التداول وفهم حركة الأسواق المالية</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <main class="lg:col-span-8 space-y-6">
             
-            <main class="lg:col-span-8 space-y-6">
-                <div class="bg-portal-card rounded-xl overflow-hidden shadow-2xl h-[600px] border border-gray-800">
-                    <div class="p-4 border-b border-gray-800 flex justify-between items-center bg-[#0f0f0f]">
-                        <h2 class="font-bold text-white text-sm flex items-center gap-2">
-                            <i class="fa-solid fa-chart-candlestick text-gold"></i> الرسم البياني المتقدم
-                        </h2>
-                        <div class="flex gap-2">
-                            <span class="w-3 h-3 rounded-full bg-green-500 animate-pulse"></span>
-                        </div>
-                    </div>
+            <!-- الرسم البياني -->
+            <div class="bg-portal-card rounded-lg overflow-hidden border border-gray-700 shadow-xl h-[500px]">
+                <div class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800">
+                    <h2 class="font-bold text-white flex items-center gap-2"><span class="text-gold">●</span> الرسم البياني (XAUUSD)</h2>
+                    <span class="text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded">مباشر</span>
+                </div>
+                <div class="h-full pb-14">
                     <div class="tradingview-widget-container" style="height:100%;width:100%">
                         <div id="tradingview_chart" style="height:100%;width:100%"></div>
                         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
@@ -189,152 +157,201 @@
                         new TradingView.widget({
                             "autosize": true,
                             "symbol": "OANDA:XAUUSD",
-                            "interval": "240",
+                            "interval": "60",
                             "timezone": "Asia/Riyadh",
                             "theme": "dark",
                             "style": "1",
                             "locale": "ar_AE",
                             "toolbar_bg": "#f1f3f6",
                             "enable_publishing": false,
-                            "hide_top_toolbar": false,
                             "hide_side_toolbar": false,
                             "allow_symbol_change": true,
-                            "container_id": "tradingview_chart",
-                            "studies": [ "RSI@tv-basicstudies" ] 
+                            "container_id": "tradingview_chart"
                         });
                         </script>
                     </div>
                 </div>
+            </div>
 
-                <div class="bg-portal-card rounded-xl p-6 border border-gray-800">
-                    <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-4">
-                        <h3 class="font-bold text-white flex items-center gap-2">
-                            <i class="fa-regular fa-newspaper text-gold"></i> تغطية الأسواق (Arabi Wire)
-                        </h3>
-                        <span class="text-xs text-gray-500">Live Feed</span>
+            <!-- آخر الأخبار -->
+            <div class="bg-portal-card rounded-lg overflow-hidden border border-gray-700">
+                <div class="p-4 border-b border-gray-700 font-bold text-white">📰 آخر أخبار الذهب والأسواق</div>
+                <div class="h-[400px]">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                        {
+                        "feedMode": "symbol",
+                        "symbol": "OANDA:XAUUSD",
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "displayMode": "regular",
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "ar_AE"
+                        }
+                        </script>
                     </div>
-                    <div class="h-[300px]">
-                        <div class="tradingview-widget-container">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                            {
-                            "feedMode": "market",
-                            "market": "forex",
-                            "colorTheme": "dark",
-                            "isTransparent": true,
-                            "displayMode": "compact",
-                            "width": "100%",
-                            "height": "100%",
-                            "locale": "ar_AE"
-                            }
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-            <aside class="lg:col-span-4 space-y-6">
-                
-                <div class="bg-gradient-to-b from-[#1a1a1a] to-black rounded-xl border border-gold/20 p-6 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 p-4 opacity-10">
-                        <i class="fa-solid fa-brain text-6xl text-white"></i>
-                    </div>
-                    <h3 class="text-gold font-bold text-sm mb-4 border-b border-white/10 pb-2">
-                        <i class="fa-solid fa-robot ml-2"></i>تحليل الذكاء الاصطناعي
-                    </h3>
-                    
-                    <div class="mb-4">
-                        <p class="text-gray-400 text-xs mb-2">الدورة الزمنية (Seasonality) - الذهب:</p>
-                        <div class="flex items-end gap-1 h-20 border-b border-gray-700 pb-1">
-                            <div class="w-1/5 h-[40%] bg-gray-700 rounded-t"></div>
-                            <div class="w-1/5 h-[60%] bg-gray-700 rounded-t"></div>
-                            <div class="w-1/5 h-[90%] bg-gold shadow-[0_0_10px_#d4af37]"></div> <div class="w-1/5 h-[70%] bg-gray-700 rounded-t opacity-50"></div>
-                            <div class="w-1/5 h-[50%] bg-gray-700 rounded-t opacity-50"></div>
-                        </div>
-                        <div class="flex justify-between text-[10px] text-gray-500 mt-1 px-1">
-                            <span>يناير</span><span>فبراير</span><span class="text-gold font-bold">مارس</span><span>أبريل</span><span>مايو</span>
-                        </div>
-                    </div>
-
-                    <p class="text-sm text-white leading-relaxed font-light">
-                        تُشير البيانات التاريخية لآخر 10 سنوات أن الذهب يميل للارتفاع بنسبة <span class="text-green-400 font-bold">+2.4%</span> خلال هذا الشهر.
-                        <br><br>
-                        <span class="text-xs text-gray-500">السيناريو المرجح:</span> <span class="text-white font-bold">إيجابي صاعد</span>
-                    </p>
-                </div>
-
-                <div id="calendar" class="bg-portal-card rounded-xl border border-gray-800 overflow-hidden">
-                    <div class="p-4 bg-[#151515] border-b border-gray-800 flex justify-between items-center">
-                        <h3 class="font-bold text-white text-sm">📅 التقويم الاقتصادي</h3>
-                        <span class="text-[10px] bg-red-900/30 text-red-400 px-2 py-1 rounded border border-red-900/30">هام جداً فقط</span>
-                    </div>
-                    <div class="h-[400px]">
-                        <div class="tradingview-widget-container">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                            {
-                            "colorTheme": "dark",
-                            "isTransparent": true,
-                            "width": "100%",
-                            "height": "100%",
-                            "locale": "ar_AE",
-                            "importanceFilter": "-1,0,1",
-                            "currencyFilter": "USD,EUR,GBP,JPY"
-                            }
-                            </script>
-                        </div>
-                    </div>
-                </div>
-
-            </aside>
-        </div>
-    </div>
-
-    <footer class="bg-black border-t border-gray-900 mt-12 pt-12 pb-6">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="col-span-1 md:col-span-2">
-                    <h4 class="text-2xl font-bold text-white mb-4">عربي <span class="text-gold">تريدر</span></h4>
-                    <p class="text-gray-500 text-sm leading-7 max-w-md">
-                        وحدة ذكاء الأسواق التابعة لمجموعة نديم كابيتال. نقدم أدوات تحليل مؤسسية، بيانات لحظية، ورؤى مدعومة بالذكاء الاصطناعي للمستثمر العربي الذكي.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4 text-sm">روابط سريعة</h4>
-                    <ul class="space-y-2 text-sm text-gray-500">
-                        <li><a href="#" class="hover:text-gold">الرسم البياني</a></li>
-                        <li><a href="#" class="hover:text-gold">الأجندة الاقتصادية</a></li>
-                        <li><a href="https://alarabipay.com" target="_blank" class="hover:text-gold">بوابة الدفع (AlarabiPay)</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white font-bold mb-4 text-sm">تواصل معنا</h4>
-                    <ul class="space-y-2 text-sm text-gray-500">
-                        <li><i class="fa-solid fa-envelope ml-2"></i> info@arabitrader.org</li>
-                        <li><i class="fa-brands fa-whatsapp ml-2"></i> +601111810071</li>
-                        <li><i class="fa-solid fa-location-dot ml-2"></i> Delaware, USA</li>
-                    </ul>
                 </div>
             </div>
+        </main>
+
+        <aside class="lg:col-span-4 space-y-6">
             
-            <div class="border-t border-gray-900 pt-6 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
-                <p>&copy; 2026 Arabi Trader. All rights reserved.</p>
-                <p class="mt-2 md:mt-0 flex items-center gap-2">
-                    Operated by <span class="text-gray-400 font-bold border border-gray-800 px-2 py-1 rounded">NADEEM DIGITAL CAPITAL LLC</span>
+            <!-- التقويم الاقتصادي -->
+            <div id="calendar" class="bg-portal-card rounded-lg border border-gray-700 overflow-hidden">
+                <div class="p-3 bg-gray-800 border-b border-gray-700 font-bold text-white">📅 أهم الأحداث (توقيت الرياض)</div>
+                <div class="h-[400px]">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                        {
+                        "colorTheme": "dark",
+                        "isTransparent": true,
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "ar_AE",
+                        "importanceFilter": "0,1", 
+                        "currencyFilter": "USD,EUR,GBP"
+                        }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <!-- مجتمع عربي تريدر -->
+            <div class="bg-gradient-to-br from-yellow-700 to-yellow-900 rounded-lg p-6 text-center text-white">
+                <h3 class="font-bold text-xl mb-4">انضم لمجتمعنا</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="https://t.me/arabi_trader" target="_blank" class="bg-blue-500/80 p-2 rounded hover:bg-blue-500 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Telegram
+                    </a>
+                    <a href="https://x.com/arabi_trader" target="_blank" class="bg-black/60 p-2 rounded hover:bg-black transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Platform X
+                    </a>
+                    <a href="https://www.snapchat.com/add/arabi.trader" target="_blank" class="bg-yellow-400/90 text-black p-2 rounded hover:bg-yellow-400 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        Snapchat
+                    </a>
+                    <a href="https://www.tiktok.com/@arabi_trader" target="_blank" class="bg-pink-600/80 p-2 rounded hover:bg-pink-600 transition flex items-center justify-center gap-2 text-sm font-bold">
+                        TikTok
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- أدوات التداول المتقدمة (جديد) -->
+    <section id="tools" class="py-16 bg-portal-card border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-white text-center mb-12">أدوات <span class="text-gold">التداول الاحترافية</span></h3>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- Stock Screener -->
+                <div class="bg-portal-dark border border-gray-700 rounded-lg overflow-hidden">
+                    <div class="p-4 border-b border-gray-700 font-bold text-white">🔍 فاحص الأسهم والعملات</div>
+                    <div class="h-[450px]">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+                            {
+                            "width": "100%",
+                            "height": "100%",
+                            "defaultColumn": "overview",
+                            "screener_type": "crypto_mkt",
+                            "displayCurrency": "USD",
+                            "colorTheme": "dark",
+                            "locale": "ar_AE",
+                            "isTransparent": true
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Heatmap -->
+                <div class="bg-portal-dark border border-gray-700 rounded-lg overflow-hidden">
+                    <div class="p-4 border-b border-gray-700 font-bold text-white">🌡️ خريطة حرارة الأسواق</div>
+                    <div class="h-[450px]">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                            {
+                            "exchanges": [],
+                            "dataSource": "SPX500",
+                            "grouping": "sector",
+                            "blockSize": "market_cap_basic",
+                            "blockColor": "change",
+                            "locale": "ar_AE",
+                            "symbolUrl": "",
+                            "colorTheme": "dark",
+                            "hasTopBar": false,
+                            "isDataSetEnabled": false,
+                            "isZoomEnabled": true,
+                            "hasSymbolTooltip": true,
+                            "width": "100%",
+                            "height": "100%"
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 mt-12 py-10">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">عربي تريدر</h4>
+                <p class="text-gray-500 leading-relaxed">منصة إخبارية وتحليلية متكاملة تهدف لتمكين المستثمر العربي بأدوات احترافية ومعلومات دقيقة.</p>
+                <div class="mt-4 pt-4 border-t border-gray-800">
+                    <p class="text-xs text-gray-600">Powered by:</p>
+                    <p class="text-gray-400 font-bold tracking-wider">NADEEM DIGITAL CAPITAL LLC</p>
+                    <p class="text-[10px] text-gray-600">United States</p>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">تواصل معنا</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li>📧 <a href="mailto:Info@arabitrader.org" class="hover:text-gold">Info@arabitrader.org</a></li>
+                    <li>📊 <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="hover:text-gold">TradingView</a></li>
+                    <li>📷 <a href="https://instagram.com/arabi.trader" target="_blank" class="hover:text-gold">Instagram</a></li>
+                    <li>💼 <a href="https://www.linkedin.com/in/arabi.trader" target="_blank" class="hover:text-gold">LinkedIn</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-4">إخلاء مسؤولية</h4>
+                <p class="text-gray-600 text-xs leading-relaxed">
+                    التداول في الأسواق المالية ينطوي على مخاطر عالية. المعلومات المقدمة على موقع 
+                    <span class="text-gray-500">Arabi Trader</span> هي لأغراض تعليمية فقط ولا تعتبر نصيحة استثمارية.
+                    الشركة غير مسؤولة عن أي قرارات تتخذ بناءً على هذه المعلومات.
                 </p>
             </div>
         </div>
+        
+        <div class="text-center text-gray-700 text-xs mt-8 pt-4 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center container mx-auto px-4">
+            <p>© 2026 Arabi Trader. All rights reserved.</p>
+            <p class="mt-2 md:mt-0">A Property of <span class="text-gray-500 font-bold">NADEEM DIGITAL CAPITAL LLC</span></p>
+        </div>
     </footer>
 
+    <!-- زر العودة للأعلى (جديد) -->
+    <div class="scroll-to-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        ↑
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // تحريك إبرة العداد لتعطي انطباع "حي"
-            const needle = document.querySelector('.gauge-needle');
-            setInterval(() => {
-                // تذبذب بسيط حول منطقة "شراء قوي"
-                const randomAngle = -45 + (Math.random() * 10 - 5); 
-                needle.style.transform = `rotate(${randomAngle}deg)`;
-            }, 2000);
+        // إظهار زر العودة للأعلى عند التمرير
+        window.addEventListener('scroll', function() {
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('show');
+            } else {
+                scrollTop.classList.remove('show');
+            }
         });
     </script>
 
