@@ -3,164 +3,499 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربي تريدر | Arabi Trader</title>
-    <meta name="description" content="تحليلات وأخبار الأسواق المالية">
+    <title>عربي تريدر | منصة التداول الشاملة</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         * { 
-            font-family: 'Noto Kufi Arabic', 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Noto Kufi Arabic', 'Inter', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
         
         :root {
-            --bg-primary: #0a0e14;
-            --bg-secondary: #12161d;
-            --bg-card: #1a1f28;
-            --border: #2a3441;
-            --text-primary: #e6edf3;
-            --text-secondary: #8b949e;
+            --bg-dark: #0a0e14;
+            --bg-darker: #050810;
+            --bg-card: #141922;
+            --bg-card-hover: #1a202c;
+            --border: #1f2937;
+            --border-light: #374151;
+            --text: #e5e7eb;
+            --text-muted: #9ca3af;
             --accent: #3b82f6;
-            --gold: #f59e0b;
+            --accent-hover: #2563eb;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #06b6d4;
         }
         
         body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg-dark);
+            color: var(--text);
             line-height: 1.6;
         }
         
-        .container { max-width: 1440px; margin: 0 auto; }
+        /* Container */
+        .container-custom { max-width: 1600px; margin: 0 auto; }
         
         /* Header */
-        .header {
-            background: var(--bg-secondary);
+        .main-header {
+            background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(8px);
+            z-index: 1000;
+            backdrop-filter: blur(12px);
         }
         
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
+        .top-bar {
+            background: var(--bg-darker);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 0;
         }
         
-        .nav-link {
-            color: var(--text-secondary);
+        .nav-main a {
+            color: var(--text-muted);
             font-size: 0.875rem;
             font-weight: 500;
-            transition: color 0.15s;
-        }
-        
-        .nav-link:hover { color: var(--text-primary); }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-            border-bottom: 1px solid var(--border);
-        }
-        
-        /* Section Title */
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .section-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-        }
-        
-        /* Cards */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            transition: all 0.2s;
             border-radius: 6px;
-            overflow: hidden;
-            transition: border-color 0.2s;
         }
         
-        .card:hover { border-color: #3a4550; }
+        .nav-main a:hover {
+            color: var(--text);
+            background: var(--bg-card);
+        }
         
-        /* Article Card - Featured */
-        .article-featured {
+        .nav-main a.active {
+            color: var(--accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        
+        /* Market Overview Bar */
+        .market-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .market-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-right: 1px solid var(--border);
+        }
+        
+        .market-item:last-child { border-right: none; }
+        
+        .market-item .symbol {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .market-item .price {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .market-item .change {
+            font-size: 0.75rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+        }
+        
+        .change.up {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .change.down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr 320px;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 1400px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 320px;
+            }
+            .left-sidebar { display: none; }
+        }
+        
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .right-sidebar { display: none; }
+        }
+        
+        /* Sidebar */
+        .sidebar {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.2s;
-            cursor: pointer;
+            padding: 1rem;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
         }
         
-        .article-featured:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
+        .sidebar-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
         }
         
-        .article-featured img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 0.3s;
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
         }
         
-        .article-featured:hover img {
-            transform: scale(1.02);
-        }
-        
-        /* Article Card - List */
-        .article-list {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        
-        .article-list:hover {
-            border-color: var(--accent);
-        }
-        
-        .article-list img {
-            width: 120px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 4px;
+        .sidebar-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
         }
         
         /* Widget */
         .widget {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
+            margin-bottom: 1rem;
         }
         
         .widget-header {
-            background: var(--bg-secondary);
-            padding: 0.875rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid var(--border);
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--text-primary);
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-darker) 100%);
         }
+        
+        .widget-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .widget-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .widget-btn {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.75rem;
+        }
+        
+        .widget-btn:hover {
+            background: var(--bg-card-hover);
+            color: var(--text);
+        }
+        
+        .widget-body {
+            padding: 1.25rem;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding: 0 1.25rem;
+            background: var(--bg-card);
+        }
+        
+        .tab {
+            padding: 0.75rem 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .tab:hover {
+            color: var(--text);
+        }
+        
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .card:hover {
+            border-color: var(--border-light);
+            transform: translateY(-2px);
+        }
+        
+        /* News Card */
+        .news-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .news-card:hover {
+            background: var(--bg-card-hover);
+        }
+        
+        .news-card:last-child {
+            border-bottom: none;
+        }
+        
+        .news-img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+        
+        .news-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+        
+        .news-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        /* Signal Card */
+        .signal-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .signal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .signal-pair {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
+        .signal-type {
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .signal-type.buy {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .signal-type.sell {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        .signal-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+        
+        .signal-detail span:first-child {
+            color: var(--text-muted);
+            display: block;
+            font-size: 0.7rem;
+        }
+        
+        .signal-detail span:last-child {
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        /* Economic Event */
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .event-item:last-child { border-bottom: none; }
+        
+        .event-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            min-width: 50px;
+        }
+        
+        .event-impact {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        
+        .event-impact.high { background: var(--danger); }
+        .event-impact.medium { background: var(--warning); }
+        .event-impact.low { background: var(--text-muted); }
+        
+        .event-flag {
+            width: 24px;
+            height: 16px;
+            border-radius: 2px;
+        }
+        
+        .event-name {
+            flex: 1;
+            font-size: 0.875rem;
+        }
+        
+        /* Tools Calculator */
+        .calculator {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.625rem 0.875rem;
+            background: var(--bg-darker);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.875rem;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .badge-info { background: rgba(6, 182, 212, 0.1); color: var(--info); }
         
         /* Loading */
         .skeleton {
-            background: linear-gradient(90deg, var(--bg-card) 0%, #252d38 50%, var(--bg-card) 100%);
+            background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-card-hover) 50%, var(--bg-card) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
+            border-radius: 6px;
         }
         
         @keyframes shimmer {
@@ -168,118 +503,263 @@
             100% { background-position: -200% 0; }
         }
         
-        /* Badge */
-        .badge {
-            display: inline-flex;
+        /* Watchlist Item */
+        .watchlist-item {
+            display: flex;
             align-items: center;
-            padding: 0.25rem 0.625rem;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .watchlist-item:hover {
+            background: var(--bg-card-hover);
+        }
+        
+        .watchlist-item:last-child { border-bottom: none; }
+        
+        /* Sentiment Meter */
+        .sentiment-meter {
+            display: flex;
+            height: 8px;
             border-radius: 4px;
+            overflow: hidden;
+            margin: 0.75rem 0;
+        }
+        
+        .sentiment-bull {
+            background: var(--success);
+        }
+        
+        .sentiment-bear {
+            background: var(--danger);
+        }
+        
+        .sentiment-labels {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .badge-primary {
-            background: rgba(59, 130, 246, 0.1);
-            color: #3b82f6;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .article-featured img { height: 200px; }
-            .article-list img { width: 100px; height: 75px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Ticker -->
-    <div style="height: 38px; background: var(--bg-secondary); border-bottom: 1px solid var(--border);">
-        <div class="tradingview-widget-container" style="height:100%;width:100%">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
-            {
-            "symbols": [
-                {"proName": "OANDA:XAUUSD", "title": "الذهب"},
-                {"proName": "FX:EURUSD", "title": "EUR/USD"},
-                {"proName": "FX:GBPUSD", "title": "GBP/USD"},
-                {"proName": "BITSTAMP:BTCUSD", "title": "BTC"},
-                {"proName": "TVC:USOIL", "title": "النفط"}
-            ],
-            "showSymbolLogo": true,
-            "colorTheme": "dark",
-            "isTransparent": false,
-            "displayMode": "adaptive",
-            "locale": "ar_AE"
-            }
-            </script>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container-custom px-4">
+            <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-4">
+                    <span class="text-muted"><i class="far fa-clock"></i> <span id="current-time"></span></span>
+                    <span class="text-muted"><i class="fas fa-globe"></i> GMT+3</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="text-muted hover:text-white transition"><i class="fab fa-telegram"></i> Telegram</a>
+                    <a href="#" class="text-muted hover:text-white transition"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#" class="text-muted hover:text-white transition"><i class="fas fa-bell"></i> تنبيهات</a>
+                    <button class="px-3 py-1 bg-accent text-white rounded text-xs font-semibold hover:bg-accent-hover transition">تسجيل دخول</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container px-4">
-            <div class="flex items-center justify-between" style="height: 60px;">
-                <div class="flex items-center gap-2">
-                    <svg class="w-7 h-7 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-                    </svg>
-                    <span class="logo-text">عربي تريدر</span>
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container-custom px-4">
+            <div class="flex items-center justify-between py-3">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-accent to-blue-700 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold leading-none">عربي تريدر</h1>
+                        <p class="text-xs text-muted">منصة التداول الشاملة</p>
+                    </div>
                 </div>
                 
-                <nav class="hidden md:flex items-center gap-6">
-                    <a href="#" class="nav-link">الرئيسية</a>
-                    <a href="#news" class="nav-link">الأخبار</a>
-                    <a href="#analysis" class="nav-link">التحليلات</a>
-                    <a href="#tools" class="nav-link">أدوات</a>
-                    <a href="https://t.me/arabi_trader" target="_blank" class="px-4 py-1.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition">
-                        Telegram
-                    </a>
-                </nav>
+                <!-- Search -->
+                <div class="hidden md:block flex-1 max-w-md mx-8">
+                    <div class="relative">
+                        <input type="text" placeholder="ابحث عن عملة، مقال، أو أداة..." class="w-full py-2 px-4 pr-10 bg-darker border border-border rounded-lg text-sm focus:outline-none focus:border-accent">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted"></i>
+                    </div>
+                </div>
+                
+                <!-- User Menu -->
+                <div class="flex items-center gap-3">
+                    <button class="p-2 hover:bg-card rounded-lg transition">
+                        <i class="far fa-star text-muted"></i>
+                    </button>
+                    <button class="p-2 hover:bg-card rounded-lg transition">
+                        <i class="far fa-bell text-muted"></i>
+                    </button>
+                    <button class="p-2 hover:bg-card rounded-lg transition">
+                        <i class="far fa-user-circle text-muted"></i>
+                    </button>
+                </div>
             </div>
+            
+            <!-- Navigation -->
+            <nav class="nav-main flex items-center gap-1 pb-2 overflow-x-auto">
+                <a href="#dashboard" class="active"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="#news"><i class="far fa-newspaper"></i> الأخبار</a>
+                <a href="#analysis"><i class="fas fa-chart-area"></i> التحليلات</a>
+                <a href="#signals"><i class="fas fa-signal"></i> الإشارات</a>
+                <a href="#calendar"><i class="far fa-calendar-alt"></i> الأجندة</a>
+                <a href="#education"><i class="fas fa-graduation-cap"></i> التعليم</a>
+                <a href="#tools"><i class="fas fa-calculator"></i> الأدوات</a>
+                <a href="#brokers"><i class="fas fa-handshake"></i> الوسطاء</a>
+                <a href="#community"><i class="fas fa-users"></i> المجتمع</a>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="container px-4 py-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Market Overview Bar -->
+    <div class="market-bar">
+        <div class="container-custom px-4">
+            <div id="market-overview" class="flex items-center gap-2">
+                <!-- Loading -->
+                <div class="skeleton h-10 w-32"></div>
+                <div class="skeleton h-10 w-32"></div>
+                <div class="skeleton h-10 w-32"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div class="container-custom px-4 py-4">
+        <div class="dashboard-grid">
             
-            <!-- Main -->
-            <main class="lg:col-span-8">
+            <!-- Left Sidebar -->
+            <aside class="left-sidebar">
+                <div class="sidebar">
+                    
+                    <!-- Watchlist -->
+                    <div class="sidebar-section">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="sidebar-title">قائمة المراقبة</h3>
+                            <button class="text-xs text-accent hover:text-accent-hover"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div id="watchlist">
+                            <div class="watchlist-item">
+                                <div>
+                                    <div class="text-sm font-semibold">XAU/USD</div>
+                                    <div class="text-xs text-muted">الذهب</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold">2,942.50</div>
+                                    <div class="text-xs text-success">+0.45%</div>
+                                </div>
+                            </div>
+                            <div class="watchlist-item">
+                                <div>
+                                    <div class="text-sm font-semibold">EUR/USD</div>
+                                    <div class="text-xs text-muted">يورو دولار</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold">1.0847</div>
+                                    <div class="text-xs text-danger">-0.12%</div>
+                                </div>
+                            </div>
+                            <div class="watchlist-item">
+                                <div>
+                                    <div class="text-sm font-semibold">GBP/USD</div>
+                                    <div class="text-xs text-muted">استرليني</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold">1.2634</div>
+                                    <div class="text-xs text-success">+0.28%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Market Sentiment -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">معنويات السوق</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>XAU/USD</span>
+                                    <span class="text-muted">67% صعود</span>
+                                </div>
+                                <div class="sentiment-meter">
+                                    <div class="sentiment-bull" style="width: 67%"></div>
+                                    <div class="sentiment-bear" style="width: 33%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span>EUR/USD</span>
+                                    <span class="text-muted">45% صعود</span>
+                                </div>
+                                <div class="sentiment-meter">
+                                    <div class="sentiment-bull" style="width: 45%"></div>
+                                    <div class="sentiment-bear" style="width: 55%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Tools -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">أدوات سريعة</h3>
+                        <div class="space-y-2">
+                            <a href="#calculator" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-calculator"></i> حاسبة حجم الصفقة</a>
+                            <a href="#pip" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-coins"></i> حاسبة النقاط</a>
+                            <a href="#pivot" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-chart-line"></i> نقاط البايفوت</a>
+                            <a href="#fibonacci" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-wave-square"></i> فيبوناتشي</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
                 
-                <!-- Featured Articles من Airtable -->
-                <section id="news" class="mb-8">
-                    <div class="section-header">
-                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                        </svg>
-                        <h2 class="section-title">آخر الأخبار</h2>
-                    </div>
-                    
-                    <div id="featured-articles">
-                        <!-- Loading -->
-                        <div class="skeleton h-96 rounded-lg mb-4"></div>
-                    </div>
-                    
-                    <div id="list-articles" class="space-y-3 mt-4">
-                        <!-- Loading -->
-                        <div class="skeleton h-24 rounded"></div>
-                        <div class="skeleton h-24 rounded"></div>
+                <!-- Featured News Section -->
+                <section id="news" class="mb-4">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h2 class="widget-title"><i class="far fa-newspaper text-accent"></i> آخر الأخبار</h2>
+                            <div class="widget-actions">
+                                <button class="widget-btn"><i class="fas fa-filter"></i> فلتر</button>
+                                <button class="widget-btn"><i class="fas fa-sync"></i></button>
+                            </div>
+                        </div>
+                        <div id="news-list">
+                            <div class="skeleton h-32 m-4"></div>
+                            <div class="skeleton h-32 m-4"></div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- Chart -->
-                <section id="analysis" class="mb-8">
-                    <div class="section-header">
-                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
-                        </svg>
-                        <h2 class="section-title">الرسم البياني - الذهب</h2>
-                    </div>
-                    
+                <!-- Charts Section -->
+                <section id="analysis" class="mb-4">
                     <div class="widget">
-                        <div style="height: 500px;">
+                        <div class="tabs">
+                            <div class="tab active">الرسم البياني</div>
+                            <div class="tab">التحليل الفني</div>
+                            <div class="tab">مستويات الدعم والمقاومة</div>
+                        </div>
+                        <div class="widget-header border-t-0">
+                            <h2 class="widget-title"><i class="fas fa-chart-area text-accent"></i> XAU/USD - الذهب مقابل الدولار</h2>
+                            <div class="widget-actions">
+                                <select class="widget-btn">
+                                    <option>1H</option>
+                                    <option>4H</option>
+                                    <option>1D</option>
+                                    <option>1W</option>
+                                </select>
+                                <button class="widget-btn"><i class="fas fa-expand"></i></button>
+                            </div>
+                        </div>
+                        <div style="height: 550px;">
                             <div class="tradingview-widget-container" style="height:100%;width:100%">
-                                <div id="tradingview_chart" style="height:100%;width:100%"></div>
+                                <div id="tradingview_advanced" style="height:100%;width:100%"></div>
                                 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
                                 <script type="text/javascript">
                                 new TradingView.widget({
@@ -290,11 +770,18 @@
                                     "theme": "dark",
                                     "style": "1",
                                     "locale": "ar_AE",
-                                    "toolbar_bg": "#12161d",
+                                    "toolbar_bg": "#0a0e14",
                                     "enable_publishing": false,
+                                    "withdateranges": true,
                                     "hide_side_toolbar": false,
                                     "allow_symbol_change": true,
-                                    "container_id": "tradingview_chart"
+                                    "save_image": true,
+                                    "studies": [
+                                        "STD;SMA",
+                                        "STD;EMA",
+                                        "STD;MACD"
+                                    ],
+                                    "container_id": "tradingview_advanced"
                                 });
                                 </script>
                             </div>
@@ -302,28 +789,88 @@
                     </div>
                 </section>
 
-                <!-- Market Timeline -->
-                <section>
-                    <div class="section-header">
-                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                        <h2 class="section-title">آخر التطورات</h2>
-                    </div>
+                <!-- Market Analysis Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     
+                    <!-- Technical Analysis -->
                     <div class="widget">
+                        <div class="widget-header">
+                            <h3 class="widget-title"><i class="fas fa-chart-line text-warning"></i> التحليل الفني</h3>
+                        </div>
                         <div style="height: 400px;">
                             <div class="tradingview-widget-container" style="height:100%;width:100%">
                                 <div class="tradingview-widget-container__widget"></div>
-                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
                                 {
-                                "feedMode": "symbol",
-                                "symbol": "OANDA:XAUUSD",
-                                "colorTheme": "dark",
+                                "interval": "1h",
+                                "width": "100%",
                                 "isTransparent": false,
-                                "displayMode": "regular",
+                                "height": "100%",
+                                "symbol": "OANDA:XAUUSD",
+                                "showIntervalTabs": true,
+                                "locale": "ar_AE",
+                                "colorTheme": "dark"
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Overview -->
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3 class="widget-title"><i class="fas fa-th text-info"></i> نظرة عامة على السوق</h3>
+                        </div>
+                        <div style="height: 400px;">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                                {
+                                "colorTheme": "dark",
+                                "dateRange": "1D",
+                                "showChart": true,
+                                "locale": "ar_AE",
                                 "width": "100%",
                                 "height": "100%",
+                                "largeChartUrl": "",
+                                "isTransparent": false,
+                                "showSymbolLogo": true,
+                                "showFloatingTooltip": false,
+                                "tabs": [
+                                    {
+                                    "title": "فوركس",
+                                    "symbols": [
+                                        {"s": "FX:EURUSD", "d": "EUR/USD"},
+                                        {"s": "FX:GBPUSD", "d": "GBP/USD"},
+                                        {"s": "FX:USDJPY", "d": "USD/JPY"},
+                                        {"s": "OANDA:XAUUSD", "d": "الذهب"}
+                                    ]
+                                    }
+                                ]
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- Heatmap -->
+                <section class="mb-4">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h2 class="widget-title"><i class="fas fa-fire text-danger"></i> خريطة السوق الحرارية</h2>
+                        </div>
+                        <div style="height: 450px;">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-heat-map.js" async>
+                                {
+                                "width": "100%",
+                                "height": "100%",
+                                "currencies": ["EUR", "USD", "JPY", "GBP", "CHF", "AUD", "CAD", "NZD"],
+                                "isTransparent": false,
+                                "colorTheme": "dark",
                                 "locale": "ar_AE"
                                 }
                                 </script>
@@ -334,192 +881,404 @@
 
             </main>
 
-            <!-- Sidebar -->
-            <aside class="lg:col-span-4 space-y-6">
-                
-                <!-- Calendar -->
-                <div class="widget">
-                    <div class="widget-header">الأجندة الاقتصادية</div>
-                    <div style="height: 380px;">
-                        <div class="tradingview-widget-container" style="height:100%;width:100%">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                            {
-                            "colorTheme": "dark",
-                            "isTransparent": false,
-                            "width": "100%",
-                            "height": "100%",
-                            "locale": "ar_AE",
-                            "importanceFilter": "0,1",
-                            "currencyFilter": "USD,EUR,GBP"
-                            }
-                            </script>
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <div class="sidebar">
+                    
+                    <!-- Economic Calendar -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">الأجندة الاقتصادية</h3>
+                        <div class="widget" style="margin: -1rem; border: none;">
+                            <div style="height: 350px;">
+                                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                    <div class="tradingview-widget-container__widget"></div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                                    {
+                                    "colorTheme": "dark",
+                                    "isTransparent": false,
+                                    "width": "100%",
+                                    "height": "100%",
+                                    "locale": "ar_AE",
+                                    "importanceFilter": "0,1",
+                                    "currencyFilter": "USD,EUR,GBP,JPY"
+                                    }
+                                    </script>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Links -->
-                <div class="card p-4">
-                    <h3 class="text-sm font-semibold mb-3" style="color: var(--text-primary);">روابط</h3>
-                    <div class="space-y-2 text-sm">
-                        <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="block text-gray-400 hover:text-blue-400 transition">TradingView →</a>
-                        <a href="https://t.me/arabi_trader" target="_blank" class="block text-gray-400 hover:text-blue-400 transition">Telegram →</a>
-                        <a href="https://x.com/arabi_trader" target="_blank" class="block text-gray-400 hover:text-blue-400 transition">X (Twitter) →</a>
+                    
+                    <!-- Trading Signals -->
+                    <div class="sidebar-section">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="sidebar-title">إشارات التداول</h3>
+                            <span class="badge badge-success">3 نشطة</span>
+                        </div>
+                        <div id="signals">
+                            <div class="signal-card">
+                                <div class="signal-header">
+                                    <span class="signal-pair">XAU/USD</span>
+                                    <span class="signal-type buy">شراء</span>
+                                </div>
+                                <div class="signal-details">
+                                    <div class="signal-detail">
+                                        <span>الدخول</span>
+                                        <span>2,942</span>
+                                    </div>
+                                    <div class="signal-detail">
+                                        <span>الهدف</span>
+                                        <span class="text-success">2,965</span>
+                                    </div>
+                                    <div class="signal-detail">
+                                        <span>الإيقاف</span>
+                                        <span class="text-danger">2,930</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="signal-card">
+                                <div class="signal-header">
+                                    <span class="signal-pair">EUR/USD</span>
+                                    <span class="signal-type sell">بيع</span>
+                                </div>
+                                <div class="signal-details">
+                                    <div class="signal-detail">
+                                        <span>الدخول</span>
+                                        <span>1.0847</span>
+                                    </div>
+                                    <div class="signal-detail">
+                                        <span>الهدف</span>
+                                        <span class="text-success">1.0820</span>
+                                    </div>
+                                    <div class="signal-detail">
+                                        <span>الإيقاف</span>
+                                        <span class="text-danger">1.0865</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full mt-3 btn btn-primary">عرض جميع الإشارات</button>
                     </div>
+                    
+                    <!-- Top Movers -->
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">الأكثر حركة</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm">BTC/USD</span>
+                                <span class="badge badge-success">+8.4%</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm">ETH/USD</span>
+                                <span class="badge badge-success">+6.2%</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm">USD/JPY</span>
+                                <span class="badge badge-danger">-2.1%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education Banner -->
+                    <div class="card text-center">
+                        <i class="fas fa-graduation-cap text-4xl text-accent mb-3"></i>
+                        <h4 class="font-bold mb-2">ابدأ رحلة التعلم</h4>
+                        <p class="text-xs text-muted mb-3">دورات مجانية من المبتدئ إلى المحترف</p>
+                        <button class="btn btn-primary w-full">ابدأ الآن</button>
+                    </div>
+                    
                 </div>
-
             </aside>
 
         </div>
     </div>
 
-    <!-- Tools -->
-    <section id="tools" class="py-8" style="border-top: 1px solid var(--border);">
-        <div class="container px-4">
-            <div class="section-header">
-                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-                <h2 class="section-title">أدوات التداول</h2>
-            </div>
+    <!-- Tools Section -->
+    <section id="tools" class="py-8 border-t border-border" style="background: var(--bg-darker);">
+        <div class="container-custom px-4">
+            <h2 class="text-2xl font-bold mb-6"><i class="fas fa-tools text-accent"></i> أدوات التداول الاحترافية</h2>
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div class="widget">
-                    <div class="widget-header">فاحص الأسواق</div>
-                    <div style="height: 450px;">
-                        <div class="tradingview-widget-container" style="height:100%;width:100%">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-                            {
-                            "width": "100%",
-                            "height": "100%",
-                            "defaultColumn": "overview",
-                            "screener_type": "crypto_mkt",
-                            "displayCurrency": "USD",
-                            "colorTheme": "dark",
-                            "locale": "ar_AE"
-                            }
-                            </script>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <!-- Position Size Calculator -->
+                <div class="calculator">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-calculator text-accent"></i>
+                        حاسبة حجم الصفقة
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">رأس المال</label>
+                        <input type="number" class="form-input" placeholder="10000" value="10000">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">المخاطرة (%)</label>
+                        <input type="number" class="form-input" placeholder="2" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">نقاط الإيقاف</label>
+                        <input type="number" class="form-input" placeholder="50" value="50">
+                    </div>
+                    <button class="btn btn-primary w-full">احسب</button>
+                    <div class="mt-4 p-3 bg-darker rounded text-center">
+                        <div class="text-xs text-muted mb-1">حجم الصفقة الموصى به</div>
+                        <div class="text-2xl font-bold text-accent">0.40 لوت</div>
+                    </div>
+                </div>
+
+                <!-- Pip Calculator -->
+                <div class="calculator">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-coins text-warning"></i>
+                        حاسبة النقاط
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">الزوج</label>
+                        <select class="form-select">
+                            <option>EUR/USD</option>
+                            <option>GBP/USD</option>
+                            <option>USD/JPY</option>
+                            <option>XAU/USD</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">حجم الصفقة (لوت)</label>
+                        <input type="number" class="form-input" placeholder="1.0" value="1.0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">عدد النقاط</label>
+                        <input type="number" class="form-input" placeholder="100" value="100">
+                    </div>
+                    <button class="btn btn-primary w-full">احسب</button>
+                    <div class="mt-4 p-3 bg-darker rounded text-center">
+                        <div class="text-xs text-muted mb-1">قيمة الربح/الخسارة</div>
+                        <div class="text-2xl font-bold text-success">$1,000</div>
+                    </div>
+                </div>
+
+                <!-- Pivot Points -->
+                <div class="calculator">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-info"></i>
+                        نقاط البايفوت
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">High</label>
+                        <input type="number" class="form-input" placeholder="2,950.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Low</label>
+                        <input type="number" class="form-input" placeholder="2,920.00" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Close</label>
+                        <input type="number" class="form-input" placeholder="2,942.00" step="0.01">
+                    </div>
+                    <button class="btn btn-primary w-full">احسب</button>
+                    <div class="mt-4 space-y-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-danger">R3</span>
+                            <span class="font-mono">2,980.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-danger">R2</span>
+                            <span class="font-mono">2,965.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-danger">R1</span>
+                            <span class="font-mono">2,952.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs font-bold">
+                            <span class="text-accent">PP</span>
+                            <span class="font-mono">2,937.33</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-success">S1</span>
+                            <span class="font-mono">2,924.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-success">S2</span>
+                            <span class="font-mono">2,909.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-success">S3</span>
+                            <span class="font-mono">2,894.00</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="widget">
-                    <div class="widget-header">خريطة السوق</div>
-                    <div style="height: 450px;">
-                        <div class="tradingview-widget-container" style="height:100%;width:100%">
-                            <div class="tradingview-widget-container__widget"></div>
-                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
-                            {
-                            "exchanges": [],
-                            "dataSource": "SPX500",
-                            "grouping": "sector",
-                            "blockSize": "market_cap_basic",
-                            "blockColor": "change",
-                            "locale": "ar_AE",
-                            "colorTheme": "dark",
-                            "width": "100%",
-                            "height": "100%"
-                            }
-                            </script>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="mt-12 py-8" style="border-top: 1px solid var(--border); background: var(--bg-secondary);">
-        <div class="container px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+    <footer class="mt-12 py-8 border-t border-border" style="background: var(--bg-darker);">
+        <div class="container-custom px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
                 <div>
-                    <p class="font-semibold mb-2" style="color: var(--text-primary);">عربي تريدر</p>
-                    <p style="color: var(--text-secondary);">منصة تحليلية للأسواق المالية</p>
+                    <h4 class="font-bold mb-4">عربي تريدر</h4>
+                    <p class="text-muted text-xs leading-relaxed">
+                        منصة تحليلية شاملة للأسواق المالية. نقدم بيانات حية، تحليلات متقدمة، وأدوات احترافية.
+                    </p>
                 </div>
                 <div>
-                    <p class="font-semibold mb-2" style="color: var(--text-primary);">تواصل</p>
-                    <a href="mailto:Info@arabitrader.org" style="color: var(--text-secondary);" class="hover:text-blue-400">Info@arabitrader.org</a>
+                    <h4 class="font-bold mb-4">روابط سريعة</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="text-muted hover:text-accent transition">عن المنصة</a></li>
+                        <li><a href="#" class="text-muted hover:text-accent transition">الأسعار</a></li>
+                        <li><a href="#" class="text-muted hover:text-accent transition">API للمطورين</a></li>
+                        <li><a href="#" class="text-muted hover:text-accent transition">الشروط والأحكام</a></li>
+                    </ul>
                 </div>
                 <div>
-                    <p class="font-semibold mb-2" style="color: var(--text-primary);">إخلاء مسؤولية</p>
-                    <p style="color: var(--text-secondary); font-size: 0.7rem;">المحتوى لأغراض تعليمية فقط. التداول ينطوي على مخاطر.</p>
+                    <h4 class="font-bold mb-4">المساعدة</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="text-muted hover:text-accent transition">الأسئلة الشائعة</a></li>
+                        <li><a href="#" class="text-muted hover:text-accent transition">مركز المساعدة</a></li>
+                        <li><a href="#" class="text-muted hover:text-accent transition">تواصل معنا</a></li>
+                        <li><a href="mailto:info@arabitrader.org" class="text-muted hover:text-accent transition">info@arabitrader.org</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">تابعنا</h4>
+                    <div class="flex gap-3 mb-4">
+                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                    <p class="text-xs text-muted">حمّل التطبيق</p>
+                    <div class="flex gap-2 mt-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-8">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" class="h-8">
+                    </div>
                 </div>
             </div>
-            <div class="mt-6 pt-4 text-center text-xs" style="border-top: 1px solid var(--border); color: var(--text-secondary);">
-                © 2026 Arabi Trader • <span style="color: var(--gold);">NADEEM DIGITAL CAPITAL LLC</span>
+            
+            <div class="mt-8 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center text-xs text-muted">
+                <p>© 2026 Arabi Trader. جميع الحقوق محفوظة.</p>
+                <p class="mt-2 md:mt-0">
+                    <span class="text-accent font-semibold">NADEEM DIGITAL CAPITAL LLC</span> • United States
+                </p>
+            </div>
+            
+            <div class="mt-4 p-4 bg-card rounded text-xs text-muted leading-relaxed">
+                <strong>إخلاء مسؤولية:</strong> التداول في الأسواق المالية ينطوي على مخاطر. المحتوى المقدم لأغراض تعليمية فقط ولا يشكل نصيحة استثمارية. استشر مستشاراً مالياً مرخصاً قبل اتخاذ قرارات تداول.
             </div>
         </div>
     </footer>
 
+    <!-- JavaScript -->
     <script>
-        const API = 'https://arabitrader-api.nadeem-alqahwi.workers.dev';
+        // Update Time
+        function updateTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('ar-SA', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false 
+            });
+            document.getElementById('current-time').textContent = timeStr;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
 
-        async function loadArticles() {
+        // Load News from Airtable
+        const API_URL = 'https://arabitrader-api.nadeem-alqahwi.workers.dev';
+
+        async function loadNews() {
             try {
-                const res = await fetch(API);
-                const data = await res.json();
+                const response = await fetch(API_URL);
+                const data = await response.json();
                 
                 if (data.success && data.articles && data.articles.length > 0) {
-                    const articles = data.articles;
-                    
-                    // Featured (أول مقال)
-                    if (articles[0]) {
-                        const featured = articles[0];
-                        const img = featured.imageThumbnail || featured.image || '';
-                        const date = featured.date ? new Date(featured.date).toLocaleDateString('ar-SA', { 
-                            year: 'numeric', month: 'short', day: 'numeric' 
-                        }) : '';
-                        
-                        document.getElementById('featured-articles').innerHTML = `
-                            <article class="article-featured" onclick="window.open('${featured.link}', '_blank')">
-                                ${img ? `<img src="${img}" alt="${featured.title}">` : '<div style="height:280px;background:#1a1f28;"></div>'}
-                                <div class="p-5">
-                                    ${date ? `<span class="badge badge-primary">${date}</span>` : ''}
-                                    <h3 class="text-xl font-semibold mt-3 mb-2 leading-tight" style="color: var(--text-primary);">${featured.title}</h3>
-                                    ${featured.description ? `<p class="text-sm" style="color: var(--text-secondary);">${featured.description.substring(0, 150)}...</p>` : ''}
-                                </div>
-                            </article>
-                        `;
-                    }
-                    
-                    // List (باقي المقالات)
-                    const listHTML = articles.slice(1, 4).map(article => {
-                        const img = article.imageThumbnail || article.image || '';
-                        const date = article.date ? new Date(article.date).toLocaleDateString('ar-SA', { 
-                            month: 'short', day: 'numeric' 
-                        }) : '';
-                        
-                        return `
-                            <article class="article-list p-3 cursor-pointer" onclick="window.open('${article.link}', '_blank')">
-                                <div class="flex gap-3">
-                                    ${img ? `<img src="${img}" alt="${article.title}">` : ''}
-                                    <div class="flex-1 min-w-0">
-                                        ${date ? `<span class="text-xs" style="color: var(--text-secondary);">${date}</span>` : ''}
-                                        <h4 class="text-sm font-medium mt-1 leading-tight" style="color: var(--text-primary);">${article.title}</h4>
-                                    </div>
-                                </div>
-                            </article>
-                        `;
-                    }).join('');
-                    
-                    document.getElementById('list-articles').innerHTML = listHTML || '<p class="text-sm text-center py-4" style="color: var(--text-secondary);">لا توجد مقالات إضافية</p>';
-                    
+                    displayNews(data.articles);
                 } else {
-                    showEmpty();
+                    showEmptyNews();
                 }
             } catch (error) {
-                console.error(error);
-                showEmpty();
+                console.error('Error loading news:', error);
+                showEmptyNews();
             }
         }
 
-        function showEmpty() {
-            document.getElementById('featured-articles').innerHTML = '<div class="card p-8 text-center"><p style="color: var(--text-secondary);">لا توجد مقالات حالياً</p></div>';
-            document.getElementById('list-articles').innerHTML = '';
+        function displayNews(articles) {
+            const container = document.getElementById('news-list');
+            
+            const html = articles.slice(0, 5).map(article => {
+                const img = article.imageThumbnail || article.image || '';
+                const date = article.date ? new Date(article.date).toLocaleDateString('ar-SA', { 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }) : '';
+                
+                return `
+                    <div class="news-card" onclick="window.open('${article.link}', '_blank')">
+                        ${img ? `<img src="${img}" alt="${article.title}" class="news-img">` : ''}
+                        <div class="news-content">
+                            <div class="news-meta">
+                                ${date ? `<span><i class="far fa-clock"></i> ${date}</span>` : ''}
+                                <span class="badge badge-info">أخبار</span>
+                            </div>
+                            <h3 class="news-title">${article.title}</h3>
+                            ${article.description ? `<p class="news-excerpt">${article.description}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            container.innerHTML = html;
         }
 
-        document.addEventListener('DOMContentLoaded', loadArticles);
+        function showEmptyNews() {
+            document.getElementById('news-list').innerHTML = `
+                <div class="p-8 text-center text-muted">
+                    <i class="far fa-newspaper text-4xl mb-3"></i>
+                    <p>لا توجد أخبار متاحة حالياً</p>
+                </div>
+            `;
+        }
+
+        // Simulated Market Data
+        function updateMarketOverview() {
+            const pairs = [
+                { symbol: 'XAU/USD', price: 2942.50, change: 0.45 },
+                { symbol: 'EUR/USD', price: 1.0847, change: -0.12 },
+                { symbol: 'GBP/USD', price: 1.2634, change: 0.28 },
+                { symbol: 'USD/JPY', price: 149.85, change: -0.34 },
+                { symbol: 'BTC/USD', price: 65420, change: 2.15 }
+            ];
+            
+            const html = pairs.map(pair => {
+                const changeClass = pair.change >= 0 ? 'up' : 'down';
+                const changeSymbol = pair.change >= 0 ? '+' : '';
+                return `
+                    <div class="market-item">
+                        <span class="symbol">${pair.symbol}</span>
+                        <span class="price">${pair.price.toLocaleString()}</span>
+                        <span class="change ${changeClass}">${changeSymbol}${pair.change}%</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('market-overview').innerHTML = html;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNews();
+            updateMarketOverview();
+        });
     </script>
 
 </body>
