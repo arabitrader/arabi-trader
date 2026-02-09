@@ -3,107 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربي تريدر | Arabi Trader - بوابتك للأسواق المالية</title>
-    <meta name="description" content="المصدر الأول للمتداول العربي في أسواق الذهب والعملات - تحليلات، أخبار، وأدوات احترافية.">
+    <title>عربي تريدر | تحليلات وأخبار الأسواق المالية</title>
+    <meta name="description" content="منصة تحليلية متخصصة في أسواق الذهب والعملات - تحليلات، بيانات حية، وأخبار فورية">
     
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
-        body { font-family: 'Cairo', sans-serif; }
-        .bg-portal-dark { background-color: #0b121e; }
-        .bg-portal-card { background-color: #151e2d; }
-        .text-gold { color: #d4af37; }
-        .bg-gold { background-color: #d4af37; }
+        * { font-family: 'IBM Plex Sans Arabic', sans-serif; }
         
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0b121e; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #b8941f; }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --accent: #d4af37;
+            --dark: #0f172a;
+            --darker: #020617;
+            --card: #1e293b;
+            --border: #334155;
         }
         
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+        body { 
+            background-color: var(--dark);
+            color: #e2e8f0;
+            line-height: 1.7;
         }
         
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards;
+        .container-custom {
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
+        .text-accent { color: var(--accent); }
+        .bg-accent { background-color: var(--accent); }
+        .border-accent { border-color: var(--accent); }
+        
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .card:hover {
+            border-color: #475569;
+            transform: translateY(-2px);
+        }
+        
+        /* Article Card */
         .article-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
         }
         
         .article-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.1);
         }
         
-        .loading-shimmer {
-            background: linear-gradient(90deg, #151e2d 0%, #1a2332 50%, #151e2d 100%);
-            background-size: 1000px 100%;
-            animation: shimmer 2s infinite;
+        .article-card img {
+            transition: transform 0.3s;
         }
         
-        .gradient-text {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .article-card:hover img {
+            transform: scale(1.05);
         }
         
-        .scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
-            color: #0b121e;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
-            z-index: 1000;
-            transition: all 0.3s;
-            font-size: 24px;
-            font-weight: bold;
+        /* Typography */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
         }
         
-        .scroll-to-top:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.6);
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 1.5rem;
+            background: var(--accent);
+            margin-left: 0.75rem;
+            vertical-align: middle;
         }
         
-        .scroll-to-top.show { display: flex; }
+        /* Navigation */
+        .nav-link {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
         
-        .line-clamp-3 {
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+        .nav-link:hover {
+            color: var(--accent);
+        }
+        
+        /* Widget Container */
+        .widget-container {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             overflow: hidden;
+        }
+        
+        .widget-header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        
+        /* Ticker */
+        .ticker-container {
+            background: var(--darker);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        /* Stats */
+        .stat-card {
+            background: linear-gradient(135deg, var(--card) 0%, #0f172a 100%);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-top: 0.5rem;
+        }
+        
+        /* Loading */
+        .loading-skeleton {
+            background: linear-gradient(90deg, var(--card) 0%, #334155 50%, var(--card) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section-title { font-size: 1.5rem; }
         }
     </style>
 </head>
-<body class="bg-portal-dark text-gray-300 antialiased selection:bg-yellow-500 selection:text-black">
+<body>
 
-    <!-- شريط الأسعار العلوي -->
-    <div class="w-full h-12 bg-black border-b border-gray-800">
-        <div class="tradingview-widget-container">
+    <!-- Ticker -->
+    <div class="ticker-container h-10">
+        <div class="tradingview-widget-container" style="height:100%;width:100%">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
             {
@@ -125,254 +199,196 @@
         </div>
     </div>
 
-    <!-- الهيدر -->
-    <header class="bg-portal-card border-b border-gray-700 shadow-2xl sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
-        <div class="container mx-auto px-4 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-700 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                    AT
+    <!-- Header -->
+    <header class="site-header sticky top-0 z-50">
+        <div class="container-custom px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-white leading-none">عربي تريدر</h1>
+                        <p class="text-xs text-gray-400">Arabi Trader</p>
+                    </div>
                 </div>
-                <div>
-                    <h1 class="text-2xl font-bold text-white leading-none">عربي <span class="text-gold">تريدر</span></h1>
-                    <span class="text-xs text-gray-500">Arabi Trader</span>
-                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="#" class="nav-link">الرئيسية</a>
+                    <a href="#analysis" class="nav-link">التحليلات</a>
+                    <a href="#news" class="nav-link">الأخبار</a>
+                    <a href="#calendar" class="nav-link">الأجندة الاقتصادية</a>
+                    <a href="#tools" class="nav-link">أدوات التداول</a>
+                    <a href="https://t.me/arabi_trader" target="_blank" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition">
+                        تابعنا على Telegram
+                    </a>
+                </nav>
+
+                <button class="md:hidden text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
             </div>
-
-            <nav class="hidden md:flex gap-8 font-medium">
-                <a href="#" class="text-white hover:text-gold transition">الرئيسية</a>
-                <a href="#features" class="hover:text-gold transition">المميزات</a>
-                <a href="#articles" class="hover:text-gold transition">الأخبار</a>
-                <a href="#tools" class="hover:text-gold transition">أدوات التداول</a>
-                <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="hover:text-gold transition">تحليلاتنا</a>
-                <a href="https://t.me/arabi_trader" target="_blank" class="hover:text-gold transition">توصيات الذهب</a>
-                <a href="#calendar" class="hover:text-gold transition">الأجندة الاقتصادية</a>
-                <a href="https://t.me/arabi_trader" target="_blank" class="px-5 py-2 bg-gradient-to-r from-yellow-600 to-yellow-500 text-white rounded-lg hover:from-yellow-500 hover:to-yellow-400 transition shadow-lg">
-                    انضم للقناة
-                </a>
-            </nav>
-
-            <button class="md:hidden text-2xl text-white">☰</button>
         </div>
     </header>
 
-    <!-- Hero Banner -->
-    <section class="bg-gradient-to-r from-yellow-900/20 via-yellow-800/15 to-yellow-700/10 border-b border-gray-800 py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                مرجعك الأول في <span class="gradient-text">عالم التداول</span>
-            </h2>
-            <p class="text-gray-400 text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
-                تحليلات احترافية، أخبار فورية، وأدوات متقدمة لمساعدتك في اتخاذ قرارات استثمارية ذكية
-            </p>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <a href="https://t.me/arabi_trader" target="_blank" class="px-8 py-4 bg-gradient-to-r from-yellow-600 to-yellow-500 text-white font-bold rounded-xl hover:from-yellow-500 hover:to-yellow-400 transition transform hover:scale-105 shadow-xl">
-                    📱 انضم لقناتنا على تيليجرام
-                </a>
-                <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="px-8 py-4 border-2 border-yellow-600 text-yellow-600 font-bold rounded-xl hover:bg-yellow-600 hover:text-white transition transform hover:scale-105">
-                    📊 شاهد تحليلاتنا
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- لماذا عربي تريدر؟ -->
-    <section id="features" class="py-20 bg-portal-dark">
-        <div class="container mx-auto px-4">
-            <h3 class="text-4xl font-bold text-white text-center mb-4">
-                لماذا <span class="gradient-text">عربي تريدر</span>؟
-            </h3>
-            <p class="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-                نقدم لك أفضل الأدوات والتحليلات لتحقيق النجاح في عالم التداول
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Main Layout -->
+    <div class="container-custom px-4 py-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Main Content -->
+            <main class="lg:col-span-8 space-y-6">
                 
-                <div class="bg-portal-card border border-gray-700 rounded-2xl p-10 text-center hover:border-yellow-600 transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="text-6xl mb-6">📊</div>
-                    <h4 class="text-2xl font-bold text-white mb-4">تحليلات احترافية</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        تحليلات يومية للذهب والعملات من خبراء أسواق المال، مدعومة بأدوات TradingView الاحترافية
+                <!-- Chart -->
+                <section id="analysis">
+                    <div class="widget-container">
+                        <div class="widget-header flex items-center justify-between">
+                            <span>الرسم البياني - الذهب مقابل الدولار (XAUUSD)</span>
+                            <span class="text-xs text-green-400">● مباشر</span>
+                        </div>
+                        <div class="h-[500px]">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div id="tradingview_chart" style="height:calc(100% - 32px);width:100%"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                <script type="text/javascript">
+                                new TradingView.widget({
+                                    "autosize": true,
+                                    "symbol": "OANDA:XAUUSD",
+                                    "interval": "60",
+                                    "timezone": "Asia/Riyadh",
+                                    "theme": "dark",
+                                    "style": "1",
+                                    "locale": "ar_AE",
+                                    "toolbar_bg": "#1e293b",
+                                    "enable_publishing": false,
+                                    "hide_side_toolbar": false,
+                                    "allow_symbol_change": true,
+                                    "container_id": "tradingview_chart"
+                                });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- News & Analysis -->
+                <section id="news">
+                    <h2 class="section-title">آخر الأخبار والتحليلات</h2>
+                    <div id="articles-container" class="space-y-4">
+                        <!-- Loading State -->
+                        <div class="loading-skeleton h-32 rounded-lg"></div>
+                        <div class="loading-skeleton h-32 rounded-lg"></div>
+                    </div>
+                </section>
+
+                <!-- Market News Timeline -->
+                <section>
+                    <div class="widget-container">
+                        <div class="widget-header">
+                            آخر أخبار السوق
+                        </div>
+                        <div class="h-[400px]">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                                {
+                                "feedMode": "symbol",
+                                "symbol": "OANDA:XAUUSD",
+                                "colorTheme": "dark",
+                                "isTransparent": false,
+                                "displayMode": "regular",
+                                "width": "100%",
+                                "height": "100%",
+                                "locale": "ar_AE"
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4 space-y-6">
+                
+                <!-- Economic Calendar -->
+                <section id="calendar">
+                    <div class="widget-container">
+                        <div class="widget-header">
+                            الأجندة الاقتصادية
+                        </div>
+                        <div class="h-[400px]">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                                {
+                                "colorTheme": "dark",
+                                "isTransparent": false,
+                                "width": "100%",
+                                "height": "100%",
+                                "locale": "ar_AE",
+                                "importanceFilter": "0,1",
+                                "currencyFilter": "USD,EUR,GBP"
+                                }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Links -->
+                <div class="card p-5">
+                    <h3 class="text-sm font-bold text-gray-300 mb-4 uppercase tracking-wider">روابط سريعة</h3>
+                    <div class="space-y-3">
+                        <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="flex items-center gap-3 text-sm text-gray-400 hover:text-accent transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2m0 2v16h12V4H6m2 2h8v2H8V6m0 4h8v2H8v-2m0 4h5v2H8v-2z"/></svg>
+                            <span>تحليلاتنا على TradingView</span>
+                        </a>
+                        <a href="https://t.me/arabi_trader" target="_blank" class="flex items-center gap-3 text-sm text-gray-400 hover:text-accent transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                            <span>قناة Telegram</span>
+                        </a>
+                        <a href="https://x.com/arabi_trader" target="_blank" class="flex items-center gap-3 text-sm text-gray-400 hover:text-accent transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            <span>حساب X (تويتر)</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- About -->
+                <div class="card p-5">
+                    <h3 class="text-sm font-bold text-gray-300 mb-4 uppercase tracking-wider">عن المنصة</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-4">
+                        منصة تحليلية متخصصة في تقديم بيانات حية وتحليلات احترافية لأسواق الذهب والعملات.
+                    </p>
+                    <p class="text-xs text-gray-500 pt-3 border-t border-gray-700">
+                        <strong class="text-accent">NADEEM DIGITAL CAPITAL LLC</strong><br>
+                        United States
                     </p>
                 </div>
 
-                <div class="bg-portal-card border border-gray-700 rounded-2xl p-10 text-center hover:border-yellow-600 transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="text-6xl mb-6">⚡</div>
-                    <h4 class="text-2xl font-bold text-white mb-4">بيانات فورية</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        أسعار حية للذهب والعملات والأسهم، مع تحديثات لحظية للأخبار الاقتصادية المؤثرة
-                    </p>
-                </div>
+            </aside>
 
-                <div class="bg-portal-card border border-gray-700 rounded-2xl p-10 text-center hover:border-yellow-600 transition transform hover:scale-105 hover:shadow-2xl">
-                    <div class="text-6xl mb-6">🎓</div>
-                    <h4 class="text-2xl font-bold text-white mb-4">محتوى تعليمي</h4>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        دورات ومقالات تعليمية لتطوير مهاراتك في التداول وفهم حركة الأسواق المالية
-                    </p>
-                </div>
-
-            </div>
         </div>
-    </section>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <main class="lg:col-span-8 space-y-8">
-            
-            <!-- الرسم البياني -->
-            <div class="bg-portal-card rounded-2xl overflow-hidden border border-gray-700 shadow-2xl h-[500px]">
-                <div class="p-5 border-b border-gray-700 flex justify-between items-center bg-gradient-to-r from-gray-800 to-gray-900">
-                    <h2 class="font-bold text-white flex items-center gap-3">
-                        <span class="text-gold text-2xl">●</span> 
-                        <span class="text-xl">الرسم البياني (XAUUSD)</span>
-                    </h2>
-                    <span class="text-xs text-green-400 bg-green-400/10 px-3 py-1.5 rounded-full font-bold">
-                        ● مباشر
-                    </span>
-                </div>
-                <div class="h-full pb-14">
-                    <div class="tradingview-widget-container" style="height:100%;width:100%">
-                        <div id="tradingview_chart" style="height:100%;width:100%"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-                        <script type="text/javascript">
-                        new TradingView.widget({
-                            "autosize": true,
-                            "symbol": "OANDA:XAUUSD",
-                            "interval": "60",
-                            "timezone": "Asia/Riyadh",
-                            "theme": "dark",
-                            "style": "1",
-                            "locale": "ar_AE",
-                            "toolbar_bg": "#f1f3f6",
-                            "enable_publishing": false,
-                            "hide_side_toolbar": false,
-                            "allow_symbol_change": true,
-                            "container_id": "tradingview_chart"
-                        });
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- آخر الأخبار -->
-            <div class="bg-portal-card rounded-2xl overflow-hidden border border-gray-700 shadow-xl">
-                <div class="p-5 border-b border-gray-700 font-bold text-white flex items-center gap-3 bg-gradient-to-r from-gray-800 to-gray-900">
-                    <span class="text-2xl">📰</span>
-                    <span class="text-xl">آخر أخبار الذهب والأسواق</span>
-                </div>
-                <div class="h-[400px]">
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-                        {
-                        "feedMode": "symbol",
-                        "symbol": "OANDA:XAUUSD",
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "displayMode": "regular",
-                        "width": "100%",
-                        "height": "100%",
-                        "locale": "ar_AE"
-                        }
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <aside class="lg:col-span-4 space-y-8">
-            
-            <!-- التقويم الاقتصادي -->
-            <div id="calendar" class="bg-portal-card rounded-2xl border border-gray-700 overflow-hidden shadow-xl">
-                <div class="p-4 bg-gradient-to-r from-gray-800 to-gray-900 border-b border-gray-700 font-bold text-white flex items-center gap-3">
-                    <span class="text-xl">📅</span>
-                    <span>أهم الأحداث (توقيت الرياض)</span>
-                </div>
-                <div class="h-[400px]">
-                    <div class="tradingview-widget-container">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                        {
-                        "colorTheme": "dark",
-                        "isTransparent": true,
-                        "width": "100%",
-                        "height": "100%",
-                        "locale": "ar_AE",
-                        "importanceFilter": "0,1", 
-                        "currencyFilter": "USD,EUR,GBP"
-                        }
-                        </script>
-                    </div>
-                </div>
-            </div>
-
-            <!-- مجتمع عربي تريدر -->
-            <div class="bg-gradient-to-br from-yellow-700 via-yellow-600 to-yellow-800 rounded-2xl p-8 text-center text-white shadow-2xl">
-                <h3 class="font-bold text-2xl mb-6">انضم لمجتمعنا</h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <a href="https://t.me/arabi_trader" target="_blank" class="bg-blue-500/90 p-3 rounded-xl hover:bg-blue-500 transition transform hover:scale-105 flex items-center justify-center gap-2 text-sm font-bold shadow-lg">
-                        Telegram
-                    </a>
-                    <a href="https://x.com/arabi_trader" target="_blank" class="bg-black/70 p-3 rounded-xl hover:bg-black transition transform hover:scale-105 flex items-center justify-center gap-2 text-sm font-bold shadow-lg">
-                        Platform X
-                    </a>
-                    <a href="https://www.snapchat.com/add/arabi.trader" target="_blank" class="bg-yellow-400/90 text-black p-3 rounded-xl hover:bg-yellow-400 transition transform hover:scale-105 flex items-center justify-center gap-2 text-sm font-bold shadow-lg">
-                        Snapchat
-                    </a>
-                    <a href="https://www.tiktok.com/@arabi_trader" target="_blank" class="bg-pink-600/90 p-3 rounded-xl hover:bg-pink-600 transition transform hover:scale-105 flex items-center justify-center gap-2 text-sm font-bold shadow-lg">
-                        TikTok
-                    </a>
-                </div>
-            </div>
-        </aside>
     </div>
 
-    <!-- قسم المقالات والتحليلات من Airtable -->
-    <section id="articles" class="py-20 bg-gradient-to-b from-portal-dark to-black border-t border-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-5xl font-bold text-white mb-4">
-                    آخر <span class="gradient-text">الأخبار والتحليلات</span>
-                </h3>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                    تابع آخر التحليلات والأخبار المؤثرة في أسواق الذهب والعملات
-                </p>
-            </div>
-            
-            <div id="articles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Loading State -->
-                <div class="col-span-full flex justify-center py-20">
-                    <div class="text-center">
-                        <div class="inline-block w-16 h-16 border-4 border-yellow-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-                        <p class="text-gray-400 text-lg">جاري تحميل آخر الأخبار...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- أدوات التداول المتقدمة -->
-    <section id="tools" class="py-20 bg-portal-card border-t border-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-5xl font-bold text-white mb-4">
-                    أدوات <span class="gradient-text">التداول الاحترافية</span>
-                </h3>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                    استخدم أدواتنا المتقدمة لتحليل الأسواق واتخاذ قرارات مدروسة
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Tools Section -->
+    <section id="tools" class="py-12 border-t border-gray-800">
+        <div class="container-custom px-4">
+            <h2 class="section-title">أدوات التداول</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
                 <!-- Stock Screener -->
-                <div class="bg-portal-dark border border-gray-700 rounded-2xl overflow-hidden shadow-xl">
-                    <div class="p-5 border-b border-gray-700 font-bold text-white flex items-center gap-3 bg-gradient-to-r from-gray-800 to-gray-900">
-                        <span class="text-2xl">🔍</span>
-                        <span class="text-xl">فاحص الأسهم والعملات</span>
-                    </div>
+                <div class="widget-container">
+                    <div class="widget-header">فاحص الأسواق</div>
                     <div class="h-[450px]">
-                        <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
                             <div class="tradingview-widget-container__widget"></div>
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
                             {
@@ -382,8 +398,7 @@
                             "screener_type": "crypto_mkt",
                             "displayCurrency": "USD",
                             "colorTheme": "dark",
-                            "locale": "ar_AE",
-                            "isTransparent": true
+                            "locale": "ar_AE"
                             }
                             </script>
                         </div>
@@ -391,13 +406,10 @@
                 </div>
 
                 <!-- Heatmap -->
-                <div class="bg-portal-dark border border-gray-700 rounded-2xl overflow-hidden shadow-xl">
-                    <div class="p-5 border-b border-gray-700 font-bold text-white flex items-center gap-3 bg-gradient-to-r from-gray-800 to-gray-900">
-                        <span class="text-2xl">🌡️</span>
-                        <span class="text-xl">خريطة حرارة الأسواق</span>
-                    </div>
+                <div class="widget-container">
+                    <div class="widget-header">خريطة السوق</div>
                     <div class="h-[450px]">
-                        <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container" style="height:100%;width:100%">
                             <div class="tradingview-widget-container__widget"></div>
                             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
                             {
@@ -426,84 +438,45 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black border-t border-gray-800 py-12">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
-            <div>
-                <h4 class="text-white font-bold text-xl mb-6">عربي تريدر</h4>
-                <p class="text-gray-500 leading-relaxed mb-6">
-                    منصة إخبارية وتحليلية متكاملة تهدف لتمكين المستثمر العربي بأدوات احترافية ومعلومات دقيقة.
-                </p>
-                <div class="mt-6 pt-6 border-t border-gray-800">
-                    <p class="text-xs text-gray-600 mb-2">Powered by:</p>
-                    <p class="text-gold font-bold tracking-wider text-lg">NADEEM DIGITAL CAPITAL LLC</p>
-                    <p class="text-[10px] text-gray-600 mt-1">United States</p>
+    <footer class="mt-12 border-t border-gray-800 bg-darker">
+        <div class="container-custom px-4 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4">عربي تريدر</h4>
+                    <p class="text-gray-400 leading-relaxed text-xs">
+                        منصة تحليلية متخصصة في أسواق الذهب والعملات. نقدم بيانات حية، تحليلات متقدمة، وأدوات احترافية للمتداولين.
+                    </p>
                 </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">تواصل معنا</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="mailto:Info@arabitrader.org" class="text-gray-400 hover:text-accent transition">Info@arabitrader.org</a></li>
+                        <li><a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="text-gray-400 hover:text-accent transition">TradingView</a></li>
+                        <li><a href="https://t.me/arabi_trader" target="_blank" class="text-gray-400 hover:text-accent transition">Telegram</a></li>
+                        <li><a href="https://www.linkedin.com/in/arabi.trader" target="_blank" class="text-gray-400 hover:text-accent transition">LinkedIn</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">إخلاء مسؤولية</h4>
+                    <p class="text-gray-500 text-xs leading-relaxed">
+                        المحتوى المقدم على هذا الموقع هو لأغراض تعليمية وإعلامية فقط ولا يشكل نصيحة استثمارية. التداول في الأسواق المالية ينطوي على مخاطر.
+                    </p>
+                </div>
+
             </div>
-            <div>
-                <h4 class="text-white font-bold text-xl mb-6">تواصل معنا</h4>
-                <ul class="space-y-3 text-gray-400">
-                    <li class="hover:text-gold transition">
-                        <a href="mailto:Info@arabitrader.org" class="flex items-center gap-2">
-                            <span>📧</span> Info@arabitrader.org
-                        </a>
-                    </li>
-                    <li class="hover:text-gold transition">
-                        <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="flex items-center gap-2">
-                            <span>📊</span> TradingView
-                        </a>
-                    </li>
-                    <li class="hover:text-gold transition">
-                        <a href="https://instagram.com/arabi.trader" target="_blank" class="flex items-center gap-2">
-                            <span>📷</span> Instagram
-                        </a>
-                    </li>
-                    <li class="hover:text-gold transition">
-                        <a href="https://www.linkedin.com/in/arabi.trader" target="_blank" class="flex items-center gap-2">
-                            <span>💼</span> LinkedIn
-                        </a>
-                    </li>
-                </ul>
+
+            <div class="mt-8 pt-6 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                <p>© 2026 Arabi Trader. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">A Property of <span class="text-accent font-semibold">NADEEM DIGITAL CAPITAL LLC</span></p>
             </div>
-            <div>
-                <h4 class="text-white font-bold text-xl mb-6">إخلاء مسؤولية</h4>
-                <p class="text-gray-600 text-xs leading-relaxed">
-                    التداول في الأسواق المالية ينطوي على مخاطر عالية. المعلومات المقدمة على موقع 
-                    <span class="text-gray-500 font-bold">Arabi Trader</span> هي لأغراض تعليمية فقط ولا تعتبر نصيحة استثمارية.
-                    الشركة غير مسؤولة عن أي قرارات تتخذ بناءً على هذه المعلومات.
-                </p>
-            </div>
-        </div>
-        
-        <div class="text-center text-gray-700 text-xs mt-10 pt-8 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center container mx-auto px-4">
-            <p>© 2026 Arabi Trader. All rights reserved.</p>
-            <p class="mt-2 md:mt-0">
-                A Property of <span class="text-gold font-bold">NADEEM DIGITAL CAPITAL LLC</span>
-            </p>
         </div>
     </footer>
 
-    <!-- زر العودة للأعلى -->
-    <div class="scroll-to-top" id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        ↑
-    </div>
-
     <!-- JavaScript -->
     <script>
-        // ==========================================
-        // زر العودة للأعلى
-        // ==========================================
-        window.addEventListener('scroll', function() {
-            const scrollTop = document.getElementById('scrollTop');
-            if (window.pageYOffset > 300) {
-                scrollTop.classList.add('show');
-            } else {
-                scrollTop.classList.remove('show');
-            }
-        });
-
-        // ==========================================
-        // تحميل المقالات من Airtable API
-        // ==========================================
         const API_URL = 'https://arabitrader-api.nadeem-alqahwi.workers.dev';
 
         async function loadArticles() {
@@ -512,119 +485,67 @@
                 const data = await response.json();
                 
                 if (data.success && data.articles && data.articles.length > 0) {
-                    // فلترة المقالات التي لها عنوان فقط
-                    const validArticles = data.articles.filter(article => 
-                        article.fields && article.fields.title
-                    );
-                    
-                    if (validArticles.length > 0) {
-                        displayArticles(validArticles);
-                    } else {
-                        showEmptyState();
-                    }
+                    displayArticles(data.articles);
                 } else {
                     showEmptyState();
                 }
             } catch (error) {
                 console.error('Error loading articles:', error);
-                showErrorState();
+                showEmptyState();
             }
         }
 
         function displayArticles(articles) {
             const container = document.getElementById('articles-container');
             
-            container.innerHTML = articles.map((article, index) => {
-                const fields = article.fields;
-                const imageUrl = fields.image?.[0]?.thumbnails?.large?.url || 
-                                fields.image?.[0]?.url || '';
+            container.innerHTML = articles.map(article => {
+                const imageUrl = article.imageThumbnail || article.image || '';
+                const date = article.date ? new Date(article.date).toLocaleDateString('ar-SA', { 
+                    year: 'numeric', month: 'long', day: 'numeric' 
+                }) : '';
                 
                 return `
-                    <div class="article-card bg-portal-card border border-gray-700 rounded-2xl overflow-hidden shadow-xl fade-in-up" style="animation-delay: ${index * 0.1}s">
-                        ${imageUrl ? `
-                            <div class="overflow-hidden h-56">
-                                <img src="${imageUrl}" 
-                                     alt="${fields.title}" 
-                                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                                     loading="lazy"
-                                     onerror="this.parentElement.innerHTML='<div class=\\'w-full h-full bg-gradient-to-br from-yellow-900/30 to-yellow-700/20 flex items-center justify-center\\\'><span class=\\'text-6xl\\'>📊</span></div>'">
-                            </div>
-                        ` : `
-                            <div class="w-full h-56 bg-gradient-to-br from-yellow-900/30 to-yellow-700/20 flex items-center justify-center">
-                                <span class="text-6xl">📊</span>
-                            </div>
-                        `}
-                        <div class="p-6">
-                            ${fields.Date ? `
-                                <div class="flex items-center gap-2 text-xs text-gray-500 mb-4">
-                                    <span class="bg-yellow-600/10 text-yellow-500 px-3 py-1 rounded-full font-bold">
-                                        📅 ${formatDate(fields.Date)}
-                                    </span>
+                    <article class="article-card">
+                        <div class="flex gap-4 p-4">
+                            ${imageUrl ? `
+                                <div class="flex-shrink-0 w-32 h-24 overflow-hidden rounded">
+                                    <img src="${imageUrl}" alt="${article.title}" class="w-full h-full object-cover" loading="lazy">
                                 </div>
                             ` : ''}
-                            <h3 class="text-xl font-bold text-white mb-4 leading-tight hover:text-gold transition">
-                                ${fields.title}
-                            </h3>
-                            ${fields.description ? `
-                                <p class="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">
-                                    ${fields.description}
-                                </p>
-                            ` : ''}
-                            ${fields.link ? `
-                                <a href="${fields.link}" 
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="inline-flex items-center gap-2 text-yellow-500 hover:text-yellow-400 text-sm font-bold group transition">
-                                    اقرأ المزيد
-                                    <span class="transform group-hover:translate-x-1 transition-transform">←</span>
-                                </a>
-                            ` : ''}
+                            <div class="flex-1 min-w-0">
+                                ${date ? `<p class="text-xs text-gray-500 mb-2">${date}</p>` : ''}
+                                <h3 class="text-base font-semibold text-white mb-2 leading-tight hover:text-accent transition">
+                                    ${article.title}
+                                </h3>
+                                ${article.description ? `
+                                    <p class="text-sm text-gray-400 line-clamp-2 leading-relaxed mb-3">
+                                        ${article.description}
+                                    </p>
+                                ` : ''}
+                                ${article.link ? `
+                                    <a href="${article.link}" target="_blank" class="inline-flex items-center text-xs text-blue-400 hover:text-blue-300 font-medium">
+                                        اقرأ المزيد
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                        </svg>
+                                    </a>
+                                ` : ''}
+                            </div>
                         </div>
-                    </div>
+                    </article>
                 `;
             }).join('');
-        }
-
-        function formatDate(dateString) {
-            if (!dateString) return 'اليوم';
-            try {
-                const date = new Date(dateString);
-                return date.toLocaleDateString('ar-SA', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
-            } catch {
-                return dateString;
-            }
         }
 
         function showEmptyState() {
             const container = document.getElementById('articles-container');
             container.innerHTML = `
-                <div class="col-span-full text-center py-20">
-                    <div class="text-7xl mb-6 opacity-50">📰</div>
-                    <h4 class="text-2xl font-bold text-white mb-3">قريباً...</h4>
-                    <p class="text-gray-500">آخر الأخبار والتحليلات ستظهر هنا</p>
+                <div class="card p-8 text-center">
+                    <p class="text-gray-500">لا توجد مقالات متاحة حالياً</p>
                 </div>
             `;
         }
 
-        function showErrorState() {
-            const container = document.getElementById('articles-container');
-            container.innerHTML = `
-                <div class="col-span-full text-center py-20">
-                    <div class="text-7xl mb-6">⚠️</div>
-                    <h4 class="text-2xl font-bold text-red-400 mb-3">عذراً</h4>
-                    <p class="text-gray-500 mb-6">حدث خطأ في تحميل الأخبار</p>
-                    <button onclick="loadArticles()" class="px-6 py-3 bg-yellow-600 text-white rounded-xl hover:bg-yellow-500 transition">
-                        إعادة المحاولة
-                    </button>
-                </div>
-            `;
-        }
-
-        // تحميل المقالات عند فتح الصفحة
         document.addEventListener('DOMContentLoaded', loadArticles);
     </script>
 
