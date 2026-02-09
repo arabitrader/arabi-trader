@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: HEAD & META TAGS -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عربي تريدر | منصة التداول الشاملة</title>
+    <meta name="description" content="منصة عربي تريدر - تحليلات وأخبار الأسواق المالية لحظة بلحظة">
+    <meta name="keywords" content="تداول, فوركس, ذهب, عملات, تحليل فني, اخبار اقتصادية">
+    <meta name="author" content="NADEEM DIGITAL CAPITAL LLC">
+    <title>عربي تريدر | منصة التداول الشاملة - Arabi Trader</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: GOOGLE FONTS -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: EXTERNAL LIBRARIES -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
-        * { 
-            font-family: 'Noto Kufi Arabic', 'Inter', system-ui, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-        
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 4: CSS VARIABLES & ROOT SETTINGS */
+/* ════════════════════════════════════════════════════════════════════════ */
         :root {
+            /* Colors */
             --bg-dark: #0a0e14;
             --bg-darker: #050810;
             --bg-card: #141922;
@@ -25,24 +42,94 @@
             --border-light: #374151;
             --text: #e5e7eb;
             --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+            
+            /* Brand Colors */
             --accent: #3b82f6;
             --accent-hover: #2563eb;
+            --accent-light: rgba(59, 130, 246, 0.1);
+            
+            /* Status Colors */
             --success: #10b981;
+            --success-light: rgba(16, 185, 129, 0.1);
             --danger: #ef4444;
+            --danger-light: rgba(239, 68, 68, 0.1);
             --warning: #f59e0b;
+            --warning-light: rgba(245, 158, 11, 0.1);
             --info: #06b6d4;
+            --info-light: rgba(6, 182, 212, 0.1);
+            
+            /* Spacing */
+            --container-max: 1600px;
+            --sidebar-width: 280px;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.2s ease;
+            --transition-slow: 0.3s ease;
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 5: GLOBAL STYLES */
+/* ════════════════════════════════════════════════════════════════════════ */
+        * { 
+            font-family: 'Noto Kufi Arabic', 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         body {
             background: var(--bg-dark);
             color: var(--text);
             line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Selection */
+        ::selection {
+            background: var(--accent);
+            color: white;
         }
         
         /* Container */
-        .container-custom { max-width: 1600px; margin: 0 auto; }
+        .container-custom { 
+            max-width: var(--container-max); 
+            margin: 0 auto; 
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 6: HEADER STYLES */
+/* ════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 6.1: TOP BAR (Social Links, Time, Login) */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .top-bar {
+            background: var(--bg-darker);
+            border-bottom: 1px solid var(--border);
+            padding: 0.5rem 0;
+            font-size: 0.75rem;
+        }
         
-        /* Header */
+        .top-bar a {
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+        }
+        
+        .top-bar a:hover {
+            color: var(--text);
+        }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 6.2: MAIN HEADER */
+/* ──────────────────────────────────────────────────────────────────────── */
         .main-header {
             background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
             border-bottom: 1px solid var(--border);
@@ -50,82 +137,141 @@
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+        }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 6.3: LOGO & BRANDING */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
         
-        .top-bar {
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0;
+            line-height: 1;
+            color: var(--text);
+        }
+        
+        .logo-text p {
+            font-size: 0.625rem;
+            color: var(--text-muted);
+            margin: 0.125rem 0 0 0;
+            line-height: 1;
+        }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 6.4: SEARCH BAR */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .search-container {
+            position: relative;
+            max-width: 28rem;
+            flex: 1;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.625rem 1rem 0.625rem 2.5rem;
             background: var(--bg-darker);
-            border-bottom: 1px solid var(--border);
-            padding: 0.5rem 0;
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            color: var(--text);
+            font-size: 0.875rem;
+            transition: all var(--transition-normal);
         }
         
-        .nav-main a {
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-dim);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 6.5: NAVIGATION MENU */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .nav-main {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .nav-main::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-link {
             color: var(--text-muted);
             font-size: 0.875rem;
             font-weight: 500;
             padding: 0.5rem 1rem;
-            transition: all 0.2s;
-            border-radius: 6px;
+            transition: all var(--transition-fast);
+            border-radius: 0.375rem;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
         }
         
-        .nav-main a:hover {
+        .nav-link:hover {
             color: var(--text);
             background: var(--bg-card);
         }
         
-        .nav-main a.active {
+        .nav-link.active {
             color: var(--accent);
-            background: rgba(59, 130, 246, 0.1);
+            background: var(--accent-light);
         }
-        
-        /* Market Overview Bar */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 7: MARKET OVERVIEW BAR (Ticker) */
+/* ════════════════════════════════════════════════════════════════════════ */
         .market-bar {
             background: var(--bg-card);
             border-bottom: 1px solid var(--border);
-            padding: 0.75rem 0;
-            overflow-x: auto;
-            white-space: nowrap;
+            padding: 0;
+            height: 38px;
+            overflow: hidden;
         }
-        
-        .market-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-right: 1px solid var(--border);
-        }
-        
-        .market-item:last-child { border-right: none; }
-        
-        .market-item .symbol {
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        
-        .market-item .price {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .market-item .change {
-            font-size: 0.75rem;
-            padding: 0.125rem 0.375rem;
-            border-radius: 4px;
-        }
-        
-        .change.up {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-        }
-        
-        .change.down {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
-        
-        /* Dashboard Grid */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 8: DASHBOARD LAYOUT */
+/* ════════════════════════════════════════════════════════════════════════ */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 250px 1fr 320px;
+            grid-template-columns: var(--sidebar-width) 1fr 320px;
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -143,18 +289,27 @@
             }
             .right-sidebar { display: none; }
         }
-        
-        /* Sidebar */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 9: SIDEBAR STYLES */
+/* ════════════════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 9.1: SIDEBAR CONTAINER */
+/* ──────────────────────────────────────────────────────────────────────── */
         .sidebar {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0.5rem;
             padding: 1rem;
             height: fit-content;
             position: sticky;
-            top: 80px;
+            top: 5rem;
         }
-        
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 9.2: SIDEBAR SECTIONS */
+/* ──────────────────────────────────────────────────────────────────────── */
         .sidebar-section {
             margin-bottom: 1.5rem;
             padding-bottom: 1.5rem;
@@ -175,12 +330,56 @@
             color: var(--text-muted);
             margin-bottom: 0.75rem;
         }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 9.3: WATCHLIST */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .watchlist-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background var(--transition-fast);
+        }
         
-        /* Widget */
+        .watchlist-item:hover {
+            background: var(--bg-card-hover);
+        }
+        
+        .watchlist-item:last-child {
+            border-bottom: none;
+        }
+
+/* ──────────────────────────────────────────────────────────────────────── */
+/* SECTION 9.4: SENTIMENT METER */
+/* ──────────────────────────────────────────────────────────────────────── */
+        .sentiment-meter {
+            display: flex;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.75rem 0;
+        }
+        
+        .sentiment-bull {
+            background: var(--success);
+            transition: width var(--transition-slow);
+        }
+        
+        .sentiment-bear {
+            background: var(--danger);
+            transition: width var(--transition-slow);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 10: WIDGET STYLES */
+/* ════════════════════════════════════════════════════════════════════════ */
         .widget {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0.5rem;
             overflow: hidden;
             margin-bottom: 1rem;
         }
@@ -200,6 +399,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text);
         }
         
         .widget-actions {
@@ -208,26 +408,29 @@
         }
         
         .widget-btn {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
+            padding: 0.25rem 0.625rem;
+            border-radius: 0.25rem;
             border: 1px solid var(--border);
             background: transparent;
             color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
             font-size: 0.75rem;
         }
         
         .widget-btn:hover {
             background: var(--bg-card-hover);
             color: var(--text);
+            border-color: var(--border-light);
         }
         
         .widget-body {
             padding: 1.25rem;
         }
-        
-        /* Tabs */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 11: TABS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .tabs {
             display: flex;
             gap: 0.5rem;
@@ -241,9 +444,10 @@
             color: var(--text-muted);
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
             font-size: 0.875rem;
             font-weight: 500;
+            white-space: nowrap;
         }
         
         .tab:hover {
@@ -254,14 +458,16 @@
             color: var(--accent);
             border-bottom-color: var(--accent);
         }
-        
-        /* Cards */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 12: CARDS & NEWS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0.5rem;
             padding: 1rem;
-            transition: all 0.2s;
+            transition: all var(--transition-normal);
         }
         
         .card:hover {
@@ -269,14 +475,13 @@
             transform: translateY(-2px);
         }
         
-        /* News Card */
         .news-card {
             display: flex;
             gap: 1rem;
             padding: 1rem;
             border-bottom: 1px solid var(--border);
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background var(--transition-fast);
         }
         
         .news-card:hover {
@@ -288,10 +493,10 @@
         }
         
         .news-img {
-            width: 120px;
-            height: 80px;
+            width: 140px;
+            height: 100px;
             object-fit: cover;
-            border-radius: 6px;
+            border-radius: 0.375rem;
             flex-shrink: 0;
         }
         
@@ -310,7 +515,7 @@
         }
         
         .news-title {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text);
@@ -318,7 +523,7 @@
         }
         
         .news-excerpt {
-            font-size: 0.825rem;
+            font-size: 0.875rem;
             color: var(--text-muted);
             line-height: 1.5;
             display: -webkit-box;
@@ -326,12 +531,14 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
-        /* Signal Card */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 13: SIGNALS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .signal-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 0.75rem;
         }
@@ -346,22 +553,23 @@
         .signal-pair {
             font-size: 1rem;
             font-weight: 700;
+            color: var(--text);
         }
         
         .signal-type {
             padding: 0.25rem 0.625rem;
-            border-radius: 4px;
+            border-radius: 0.25rem;
             font-size: 0.75rem;
             font-weight: 600;
         }
         
         .signal-type.buy {
-            background: rgba(16, 185, 129, 0.1);
+            background: var(--success-light);
             color: var(--success);
         }
         
         .signal-type.sell {
-            background: rgba(239, 68, 68, 0.1);
+            background: var(--danger-light);
             color: var(--danger);
         }
         
@@ -382,8 +590,10 @@
             color: var(--text);
             font-weight: 600;
         }
-        
-        /* Economic Event */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 14: ECONOMIC CALENDAR */
+/* ════════════════════════════════════════════════════════════════════════ */
         .event-item {
             display: flex;
             align-items: center;
@@ -392,7 +602,9 @@
             border-bottom: 1px solid var(--border);
         }
         
-        .event-item:last-child { border-bottom: none; }
+        .event-item:last-child {
+            border-bottom: none;
+        }
         
         .event-time {
             font-size: 0.75rem;
@@ -409,26 +621,47 @@
         .event-impact.high { background: var(--danger); }
         .event-impact.medium { background: var(--warning); }
         .event-impact.low { background: var(--text-muted); }
-        
-        .event-flag {
-            width: 24px;
-            height: 16px;
-            border-radius: 2px;
-        }
-        
-        .event-name {
-            flex: 1;
-            font-size: 0.875rem;
-        }
-        
-        /* Tools Calculator */
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 15: TOOLS & CALCULATORS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .calculator {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 0.5rem;
             padding: 1.25rem;
         }
         
+        .calculator h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .calculator-result {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--bg-darker);
+            border-radius: 0.375rem;
+            text-align: center;
+        }
+        
+        .calculator-result-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+        
+        .calculator-result-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 16: FORMS & INPUTS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .form-group {
             margin-bottom: 1rem;
         }
@@ -441,29 +674,44 @@
             color: var(--text-muted);
         }
         
-        .form-input, .form-select {
+        .form-input,
+        .form-select {
             width: 100%;
             padding: 0.625rem 0.875rem;
             background: var(--bg-darker);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 0.375rem;
             color: var(--text);
             font-size: 0.875rem;
+            transition: all var(--transition-fast);
         }
         
-        .form-input:focus, .form-select:focus {
+        .form-input:focus,
+        .form-select:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
         }
         
+        .form-input::placeholder {
+            color: var(--text-dim);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 17: BUTTONS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .btn {
             padding: 0.625rem 1.25rem;
-            border-radius: 6px;
+            border-radius: 0.375rem;
             font-weight: 600;
             font-size: 0.875rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all var(--transition-fast);
             border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
         
         .btn-primary {
@@ -473,29 +721,61 @@
         
         .btn-primary:hover {
             background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
         
-        /* Badges */
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 18: BADGES & LABELS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .badge {
             display: inline-flex;
             align-items: center;
             padding: 0.25rem 0.625rem;
-            border-radius: 4px;
+            border-radius: 0.25rem;
             font-size: 0.75rem;
             font-weight: 600;
         }
         
-        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-        .badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .badge-warning { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
-        .badge-info { background: rgba(6, 182, 212, 0.1); color: var(--info); }
+        .badge-success {
+            background: var(--success-light);
+            color: var(--success);
+        }
         
-        /* Loading */
+        .badge-danger {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        .badge-warning {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+        
+        .badge-info {
+            background: var(--info-light);
+            color: var(--info);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 19: LOADING & ANIMATIONS */
+/* ════════════════════════════════════════════════════════════════════════ */
         .skeleton {
             background: linear-gradient(90deg, var(--bg-card) 0%, var(--bg-card-hover) 50%, var(--bg-card) 100%);
             background-size: 200% 100%;
             animation: shimmer 1.5s infinite;
-            border-radius: 6px;
+            border-radius: 0.375rem;
         }
         
         @keyframes shimmer {
@@ -503,136 +783,255 @@
             100% { background-position: -200% 0; }
         }
         
-        /* Watchlist Item */
-        .watchlist-item {
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 20: FOOTER */
+/* ════════════════════════════════════════════════════════════════════════ */
+        footer {
+            background: var(--bg-darker);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+        
+        footer a {
+            color: var(--text-muted);
+            transition: color var(--transition-fast);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: var(--accent);
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 21: RESPONSIVE DESIGN */
+/* ════════════════════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .news-img {
+                width: 100px;
+                height: 75px;
+            }
+            
+            .news-title {
+                font-size: 0.9rem;
+            }
+            
+            .news-excerpt {
+                font-size: 0.8rem;
+            }
+            
+            .search-container {
+                display: none;
+            }
+        }
+
+/* ════════════════════════════════════════════════════════════════════════ */
+/* SECTION 21.1: EMAIL SUBSCRIPTION STYLES */
+/* ════════════════════════════════════════════════════════════════════════ */
+        .subscription-box {
+            background: linear-gradient(135deg, var(--accent) 0%, #2563eb 100%);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .subscription-form {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border);
+            gap: 0.5rem;
+            max-width: 400px;
+            margin: 1rem auto 0;
+        }
+        
+        .subscription-form input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            border: none;
+            background: white;
+            color: var(--bg-dark);
+        }
+        
+        .subscription-form button {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-dark);
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all var(--transition-fast);
         }
         
-        .watchlist-item:hover {
-            background: var(--bg-card-hover);
-        }
-        
-        .watchlist-item:last-child { border-bottom: none; }
-        
-        /* Sentiment Meter */
-        .sentiment-meter {
-            display: flex;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 0.75rem 0;
-        }
-        
-        .sentiment-bull {
-            background: var(--success);
-        }
-        
-        .sentiment-bear {
-            background: var(--danger);
-        }
-        
-        .sentiment-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
+        .subscription-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
+
 <body>
 
-    <!-- Top Bar -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 22: HTML - TOP BAR -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <div class="top-bar">
         <div class="container-custom px-4">
-            <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center justify-between">
+                <!-- Left: Time & Timezone -->
                 <div class="flex items-center gap-4">
-                    <span class="text-muted"><i class="far fa-clock"></i> <span id="current-time"></span></span>
-                    <span class="text-muted"><i class="fas fa-globe"></i> GMT+3</span>
+                    <span class="text-muted">
+                        <i class="far fa-clock"></i> 
+                        <span id="live-time">--:--:--</span>
+                    </span>
+                    <span class="text-muted">
+                        <i class="fas fa-globe"></i> GMT+3
+                    </span>
                 </div>
+                
+                <!-- Right: Social & Login -->
                 <div class="flex items-center gap-4">
-                    <a href="#" class="text-muted hover:text-white transition"><i class="fab fa-telegram"></i> Telegram</a>
-                    <a href="#" class="text-muted hover:text-white transition"><i class="fab fa-twitter"></i> Twitter</a>
-                    <a href="#" class="text-muted hover:text-white transition"><i class="fas fa-bell"></i> تنبيهات</a>
-                    <button class="px-3 py-1 bg-accent text-white rounded text-xs font-semibold hover:bg-accent-hover transition">تسجيل دخول</button>
+                    <a href="https://t.me/arabi_trader" target="_blank">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="https://x.com/arabi_trader" target="_blank">
+                        <i class="fab fa-twitter"></i> X
+                    </a>
+                    <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank">
+                        <i class="fas fa-chart-line"></i> TradingView
+                    </a>
+                    <a href="#"><i class="fas fa-bell"></i> تنبيهات</a>
+                    <button class="px-3 py-1 bg-accent text-white rounded text-xs font-semibold hover:bg-accent-hover transition">
+                        تسجيل دخول
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Header -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 23: HTML - MAIN HEADER -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <header class="main-header">
         <div class="container-custom px-4">
             <div class="flex items-center justify-between py-3">
-                <!-- Logo -->
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-accent to-blue-700 rounded-lg flex items-center justify-center">
+                
+                <!-- Logo & Branding -->
+                <div class="logo-container">
+                    <div class="logo-icon">
                         <i class="fas fa-chart-line text-white text-lg"></i>
                     </div>
-                    <div>
-                        <h1 class="text-xl font-bold leading-none">عربي تريدر</h1>
-                        <p class="text-xs text-muted">منصة التداول الشاملة</p>
+                    <div class="logo-text">
+                        <h1>عربي تريدر</h1>
+                        <p>منصة التداول الشاملة</p>
                     </div>
                 </div>
                 
-                <!-- Search -->
-                <div class="hidden md:block flex-1 max-w-md mx-8">
-                    <div class="relative">
-                        <input type="text" placeholder="ابحث عن عملة، مقال، أو أداة..." class="w-full py-2 px-4 pr-10 bg-darker border border-border rounded-lg text-sm focus:outline-none focus:border-accent">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-muted"></i>
-                    </div>
+                <!-- Search Bar -->
+                <div class="search-container hidden md:block mx-8">
+                    <input 
+                        type="text" 
+                        id="search-input"
+                        class="search-input" 
+                        placeholder="ابحث عن عملة، مقال، أو أداة..."
+                    >
+                    <i class="fas fa-search search-icon"></i>
                 </div>
                 
                 <!-- User Menu -->
                 <div class="flex items-center gap-3">
-                    <button class="p-2 hover:bg-card rounded-lg transition">
+                    <button class="p-2 hover:bg-card rounded-lg transition" title="المفضلة">
                         <i class="far fa-star text-muted"></i>
                     </button>
-                    <button class="p-2 hover:bg-card rounded-lg transition">
+                    <button class="p-2 hover:bg-card rounded-lg transition" title="الإشعارات">
                         <i class="far fa-bell text-muted"></i>
                     </button>
-                    <button class="p-2 hover:bg-card rounded-lg transition">
+                    <button class="p-2 hover:bg-card rounded-lg transition" title="الحساب">
                         <i class="far fa-user-circle text-muted"></i>
                     </button>
                 </div>
             </div>
-            
-            <!-- Navigation -->
-            <nav class="nav-main flex items-center gap-1 pb-2 overflow-x-auto">
-                <a href="#dashboard" class="active"><i class="fas fa-home"></i> الرئيسية</a>
-                <a href="#news"><i class="far fa-newspaper"></i> الأخبار</a>
-                <a href="#analysis"><i class="fas fa-chart-area"></i> التحليلات</a>
-                <a href="#signals"><i class="fas fa-signal"></i> الإشارات</a>
-                <a href="#calendar"><i class="far fa-calendar-alt"></i> الأجندة</a>
-                <a href="#education"><i class="fas fa-graduation-cap"></i> التعليم</a>
-                <a href="#tools"><i class="fas fa-calculator"></i> الأدوات</a>
-                <a href="#brokers"><i class="fas fa-handshake"></i> الوسطاء</a>
-                <a href="#community"><i class="fas fa-users"></i> المجتمع</a>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 24: HTML - NAVIGATION MENU -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+            <nav class="nav-main">
+                <a href="#dashboard" class="nav-link active">
+                    <i class="fas fa-home"></i> الرئيسية
+                </a>
+                <a href="#news" class="nav-link">
+                    <i class="far fa-newspaper"></i> الأخبار
+                </a>
+                <a href="#analysis" class="nav-link">
+                    <i class="fas fa-chart-area"></i> التحليلات
+                </a>
+                <a href="#signals" class="nav-link">
+                    <i class="fas fa-signal"></i> الإشارات
+                </a>
+                <a href="#calendar" class="nav-link">
+                    <i class="far fa-calendar-alt"></i> الأجندة
+                </a>
+                <a href="#education" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> التعليم
+                </a>
+                <a href="#tools" class="nav-link">
+                    <i class="fas fa-calculator"></i> الأدوات
+                </a>
+                <a href="#brokers" class="nav-link">
+                    <i class="fas fa-handshake"></i> الوسطاء
+                </a>
+                <a href="#community" class="nav-link">
+                    <i class="fas fa-users"></i> المجتمع
+                </a>
             </nav>
         </div>
     </header>
 
-    <!-- Market Overview Bar -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 25: HTML - MARKET TICKER (TradingView Real-Time Widget) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <div class="market-bar">
-        <div class="container-custom px-4">
-            <div id="market-overview" class="flex items-center gap-2">
-                <!-- Loading -->
-                <div class="skeleton h-10 w-32"></div>
-                <div class="skeleton h-10 w-32"></div>
-                <div class="skeleton h-10 w-32"></div>
-            </div>
+        <div class="tradingview-widget-container" style="height:100%;width:100%">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+            "symbols": [
+                {"proName": "OANDA:XAUUSD", "title": "الذهب"},
+                {"proName": "FX:EURUSD", "title": "EUR/USD"},
+                {"proName": "FX:GBPUSD", "title": "GBP/USD"},
+                {"proName": "FX:USDJPY", "title": "USD/JPY"},
+                {"proName": "BITSTAMP:BTCUSD", "title": "BTC"},
+                {"proName": "TVC:USOIL", "title": "النفط"},
+                {"proName": "TADAWUL:TASI", "title": "تاسي"}
+            ],
+            "showSymbolLogo": true,
+            "colorTheme": "dark",
+            "isTransparent": false,
+            "displayMode": "adaptive",
+            "locale": "ar_AE"
+            }
+            </script>
         </div>
     </div>
 
-    <!-- Main Dashboard -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 26: HTML - DASHBOARD LAYOUT -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <div class="container-custom px-4 py-4">
         <div class="dashboard-grid">
             
-            <!-- Left Sidebar -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 26.1: LEFT SIDEBAR -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
             <aside class="left-sidebar">
                 <div class="sidebar">
                     
@@ -640,7 +1039,9 @@
                     <div class="sidebar-section">
                         <div class="flex items-center justify-between mb-3">
                             <h3 class="sidebar-title">قائمة المراقبة</h3>
-                            <button class="text-xs text-accent hover:text-accent-hover"><i class="fas fa-plus"></i></button>
+                            <button class="text-xs text-accent hover:text-accent-hover">
+                                <i class="fas fa-plus"></i>
+                            </button>
                         </div>
                         <div id="watchlist">
                             <div class="watchlist-item">
@@ -649,8 +1050,8 @@
                                     <div class="text-xs text-muted">الذهب</div>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-sm font-bold">2,942.50</div>
-                                    <div class="text-xs text-success">+0.45%</div>
+                                    <div class="text-sm font-bold" id="xau-price">--</div>
+                                    <div class="text-xs text-success" id="xau-change">--</div>
                                 </div>
                             </div>
                             <div class="watchlist-item">
@@ -659,8 +1060,8 @@
                                     <div class="text-xs text-muted">يورو دولار</div>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-sm font-bold">1.0847</div>
-                                    <div class="text-xs text-danger">-0.12%</div>
+                                    <div class="text-sm font-bold" id="eur-price">--</div>
+                                    <div class="text-xs" id="eur-change">--</div>
                                 </div>
                             </div>
                             <div class="watchlist-item">
@@ -669,8 +1070,8 @@
                                     <div class="text-xs text-muted">استرليني</div>
                                 </div>
                                 <div class="text-right">
-                                    <div class="text-sm font-bold">1.2634</div>
-                                    <div class="text-xs text-success">+0.28%</div>
+                                    <div class="text-sm font-bold" id="gbp-price">--</div>
+                                    <div class="text-xs" id="gbp-change">--</div>
                                 </div>
                             </div>
                         </div>
@@ -683,7 +1084,7 @@
                             <div>
                                 <div class="flex justify-between text-xs mb-1">
                                     <span>XAU/USD</span>
-                                    <span class="text-muted">67% صعود</span>
+                                    <span class="text-muted" id="xau-sentiment">67% صعود</span>
                                 </div>
                                 <div class="sentiment-meter">
                                     <div class="sentiment-bull" style="width: 67%"></div>
@@ -693,7 +1094,7 @@
                             <div>
                                 <div class="flex justify-between text-xs mb-1">
                                     <span>EUR/USD</span>
-                                    <span class="text-muted">45% صعود</span>
+                                    <span class="text-muted" id="eur-sentiment">45% صعود</span>
                                 </div>
                                 <div class="sentiment-meter">
                                     <div class="sentiment-bull" style="width: 45%"></div>
@@ -707,37 +1108,57 @@
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">أدوات سريعة</h3>
                         <div class="space-y-2">
-                            <a href="#calculator" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-calculator"></i> حاسبة حجم الصفقة</a>
-                            <a href="#pip" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-coins"></i> حاسبة النقاط</a>
-                            <a href="#pivot" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-chart-line"></i> نقاط البايفوت</a>
-                            <a href="#fibonacci" class="block text-sm text-muted hover:text-accent transition"><i class="fas fa-wave-square"></i> فيبوناتشي</a>
+                            <a href="#calculator" class="block text-sm text-muted hover:text-accent transition">
+                                <i class="fas fa-calculator"></i> حاسبة حجم الصفقة
+                            </a>
+                            <a href="#pip" class="block text-sm text-muted hover:text-accent transition">
+                                <i class="fas fa-coins"></i> حاسبة النقاط
+                            </a>
+                            <a href="#pivot" class="block text-sm text-muted hover:text-accent transition">
+                                <i class="fas fa-chart-line"></i> نقاط البايفوت
+                            </a>
+                            <a href="#fibonacci" class="block text-sm text-muted hover:text-accent transition">
+                                <i class="fas fa-wave-square"></i> فيبوناتشي
+                            </a>
                         </div>
                     </div>
                     
                 </div>
             </aside>
 
-            <!-- Main Content -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 27: MAIN CONTENT -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
             <main>
                 
-                <!-- Featured News Section -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 27.1: FEATURED NEWS (Real Airtable Data) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
                 <section id="news" class="mb-4">
                     <div class="widget">
                         <div class="widget-header">
-                            <h2 class="widget-title"><i class="far fa-newspaper text-accent"></i> آخر الأخبار</h2>
+                            <h2 class="widget-title">
+                                <i class="far fa-newspaper text-accent"></i> آخر الأخبار
+                            </h2>
                             <div class="widget-actions">
-                                <button class="widget-btn"><i class="fas fa-filter"></i> فلتر</button>
-                                <button class="widget-btn"><i class="fas fa-sync"></i></button>
+                                <button class="widget-btn" onclick="loadNews()">
+                                    <i class="fas fa-sync"></i> تحديث
+                                </button>
                             </div>
                         </div>
                         <div id="news-list">
-                            <div class="skeleton h-32 m-4"></div>
-                            <div class="skeleton h-32 m-4"></div>
+                            <!-- Loading State -->
+                            <div class="p-4 space-y-3">
+                                <div class="skeleton h-24"></div>
+                                <div class="skeleton h-24"></div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Charts Section -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 27.2: ADVANCED CHARTS (TradingView Real-Time) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
                 <section id="analysis" class="mb-4">
                     <div class="widget">
                         <div class="tabs">
@@ -746,15 +1167,20 @@
                             <div class="tab">مستويات الدعم والمقاومة</div>
                         </div>
                         <div class="widget-header border-t-0">
-                            <h2 class="widget-title"><i class="fas fa-chart-area text-accent"></i> XAU/USD - الذهب مقابل الدولار</h2>
+                            <h2 class="widget-title">
+                                <i class="fas fa-chart-area text-accent"></i> 
+                                XAU/USD - الذهب مقابل الدولار
+                            </h2>
                             <div class="widget-actions">
                                 <select class="widget-btn">
                                     <option>1H</option>
                                     <option>4H</option>
-                                    <option>1D</option>
+                                    <option selected>1D</option>
                                     <option>1W</option>
                                 </select>
-                                <button class="widget-btn"><i class="fas fa-expand"></i></button>
+                                <button class="widget-btn">
+                                    <i class="fas fa-expand"></i>
+                                </button>
                             </div>
                         </div>
                         <div style="height: 550px;">
@@ -765,7 +1191,7 @@
                                 new TradingView.widget({
                                     "autosize": true,
                                     "symbol": "OANDA:XAUUSD",
-                                    "interval": "60",
+                                    "interval": "D",
                                     "timezone": "Asia/Riyadh",
                                     "theme": "dark",
                                     "style": "1",
@@ -778,8 +1204,7 @@
                                     "save_image": true,
                                     "studies": [
                                         "STD;SMA",
-                                        "STD;EMA",
-                                        "STD;MACD"
+                                        "STD;EMA"
                                     ],
                                     "container_id": "tradingview_advanced"
                                 });
@@ -789,13 +1214,17 @@
                     </div>
                 </section>
 
-                <!-- Market Analysis Grid -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 27.3: TECHNICAL ANALYSIS & MARKET OVERVIEW -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     
                     <!-- Technical Analysis -->
                     <div class="widget">
                         <div class="widget-header">
-                            <h3 class="widget-title"><i class="fas fa-chart-line text-warning"></i> التحليل الفني</h3>
+                            <h3 class="widget-title">
+                                <i class="fas fa-chart-line text-warning"></i> التحليل الفني
+                            </h3>
                         </div>
                         <div style="height: 400px;">
                             <div class="tradingview-widget-container" style="height:100%;width:100%">
@@ -819,7 +1248,9 @@
                     <!-- Market Overview -->
                     <div class="widget">
                         <div class="widget-header">
-                            <h3 class="widget-title"><i class="fas fa-th text-info"></i> نظرة عامة على السوق</h3>
+                            <h3 class="widget-title">
+                                <i class="fas fa-th text-info"></i> نظرة عامة على السوق
+                            </h3>
                         </div>
                         <div style="height: 400px;">
                             <div class="tradingview-widget-container" style="height:100%;width:100%">
@@ -855,11 +1286,15 @@
                     
                 </div>
 
-                <!-- Heatmap -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 27.4: FOREX HEATMAP -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
                 <section class="mb-4">
                     <div class="widget">
                         <div class="widget-header">
-                            <h2 class="widget-title"><i class="fas fa-fire text-danger"></i> خريطة السوق الحرارية</h2>
+                            <h2 class="widget-title">
+                                <i class="fas fa-fire text-danger"></i> خريطة السوق الحرارية
+                            </h2>
                         </div>
                         <div style="height: 450px;">
                             <div class="tradingview-widget-container" style="height:100%;width:100%">
@@ -881,40 +1316,44 @@
 
             </main>
 
-            <!-- Right Sidebar -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 28: RIGHT SIDEBAR -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
             <aside class="right-sidebar">
                 <div class="sidebar">
                     
-                    <!-- Economic Calendar -->
-                    <div class="sidebar-section">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 28.1: ECONOMIC CALENDAR (TradingView Real-Time) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                    <div class="sidebar-section" id="calendar">
                         <h3 class="sidebar-title">الأجندة الاقتصادية</h3>
-                        <div class="widget" style="margin: -1rem; border: none;">
-                            <div style="height: 350px;">
-                                <div class="tradingview-widget-container" style="height:100%;width:100%">
-                                    <div class="tradingview-widget-container__widget"></div>
-                                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
-                                    {
-                                    "colorTheme": "dark",
-                                    "isTransparent": false,
-                                    "width": "100%",
-                                    "height": "100%",
-                                    "locale": "ar_AE",
-                                    "importanceFilter": "0,1",
-                                    "currencyFilter": "USD,EUR,GBP,JPY"
-                                    }
-                                    </script>
-                                </div>
+                        <div style="height: 350px; margin: -1rem; border: none;">
+                            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                <div class="tradingview-widget-container__widget"></div>
+                                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                                {
+                                "colorTheme": "dark",
+                                "isTransparent": false,
+                                "width": "100%",
+                                "height": "100%",
+                                "locale": "ar_AE",
+                                "importanceFilter": "0,1",
+                                "currencyFilter": "USD,EUR,GBP,JPY"
+                                }
+                                </script>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Trading Signals -->
-                    <div class="sidebar-section">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 28.2: TRADING SIGNALS -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                    <div class="sidebar-section" id="signals">
                         <div class="flex items-center justify-between mb-3">
                             <h3 class="sidebar-title">إشارات التداول</h3>
                             <span class="badge badge-success">3 نشطة</span>
                         </div>
-                        <div id="signals">
+                        <div>
                             <div class="signal-card">
                                 <div class="signal-header">
                                     <span class="signal-pair">XAU/USD</span>
@@ -957,13 +1396,17 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="w-full mt-3 btn btn-primary">عرض جميع الإشارات</button>
+                        <button class="w-full mt-3 btn btn-primary">
+                            عرض جميع الإشارات
+                        </button>
                     </div>
                     
-                    <!-- Top Movers -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 28.3: TOP MOVERS -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
                     <div class="sidebar-section">
                         <h3 class="sidebar-title">الأكثر حركة</h3>
-                        <div class="space-y-2">
+                        <div class="space-y-2" id="top-movers">
                             <div class="flex justify-between items-center py-2">
                                 <span class="text-sm">BTC/USD</span>
                                 <span class="badge badge-success">+8.4%</span>
@@ -979,11 +1422,15 @@
                         </div>
                     </div>
                     
-                    <!-- Education Banner -->
-                    <div class="card text-center">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 28.4: EDUCATION BANNER -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                    <div class="card text-center" id="education">
                         <i class="fas fa-graduation-cap text-4xl text-accent mb-3"></i>
                         <h4 class="font-bold mb-2">ابدأ رحلة التعلم</h4>
-                        <p class="text-xs text-muted mb-3">دورات مجانية من المبتدئ إلى المحترف</p>
+                        <p class="text-xs text-muted mb-3">
+                            دورات مجانية من المبتدئ إلى المحترف
+                        </p>
                         <button class="btn btn-primary w-full">ابدأ الآن</button>
                     </div>
                     
@@ -993,115 +1440,133 @@
         </div>
     </div>
 
-    <!-- Tools Section -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 29: TOOLS SECTION (Working Calculators) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <section id="tools" class="py-8 border-t border-border" style="background: var(--bg-darker);">
         <div class="container-custom px-4">
-            <h2 class="text-2xl font-bold mb-6"><i class="fas fa-tools text-accent"></i> أدوات التداول الاحترافية</h2>
+            <h2 class="text-2xl font-bold mb-6">
+                <i class="fas fa-tools text-accent"></i> أدوات التداول الاحترافية
+            </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 
-                <!-- Position Size Calculator -->
-                <div class="calculator">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 29.1: POSITION SIZE CALCULATOR (Working) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                <div class="calculator" id="calculator">
                     <h3 class="font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-calculator text-accent"></i>
                         حاسبة حجم الصفقة
                     </h3>
                     <div class="form-group">
-                        <label class="form-label">رأس المال</label>
-                        <input type="number" class="form-input" placeholder="10000" value="10000">
+                        <label class="form-label">رأس المال (USD)</label>
+                        <input type="number" id="capital" class="form-input" placeholder="10000" value="10000">
                     </div>
                     <div class="form-group">
                         <label class="form-label">المخاطرة (%)</label>
-                        <input type="number" class="form-input" placeholder="2" value="2">
+                        <input type="number" id="risk" class="form-input" placeholder="2" value="2" step="0.1">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">نقاط الإيقاف</label>
-                        <input type="number" class="form-input" placeholder="50" value="50">
+                        <label class="form-label">نقاط الإيقاف (Pips)</label>
+                        <input type="number" id="stop-pips" class="form-input" placeholder="50" value="50">
                     </div>
-                    <button class="btn btn-primary w-full">احسب</button>
-                    <div class="mt-4 p-3 bg-darker rounded text-center">
-                        <div class="text-xs text-muted mb-1">حجم الصفقة الموصى به</div>
-                        <div class="text-2xl font-bold text-accent">0.40 لوت</div>
+                    <button class="btn btn-primary w-full" onclick="calculatePositionSize()">
+                        <i class="fas fa-calculator"></i> احسب
+                    </button>
+                    <div class="calculator-result" id="position-result" style="display: none;">
+                        <div class="calculator-result-label">حجم الصفقة الموصى به</div>
+                        <div class="calculator-result-value" id="position-value">--</div>
                     </div>
                 </div>
 
-                <!-- Pip Calculator -->
-                <div class="calculator">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 29.2: PIP CALCULATOR (Working) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                <div class="calculator" id="pip">
                     <h3 class="font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-coins text-warning"></i>
                         حاسبة النقاط
                     </h3>
                     <div class="form-group">
                         <label class="form-label">الزوج</label>
-                        <select class="form-select">
-                            <option>EUR/USD</option>
-                            <option>GBP/USD</option>
-                            <option>USD/JPY</option>
-                            <option>XAU/USD</option>
+                        <select id="pip-pair" class="form-select">
+                            <option value="10">EUR/USD</option>
+                            <option value="10">GBP/USD</option>
+                            <option value="9.09">USD/JPY</option>
+                            <option value="10" selected>XAU/USD</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="form-label">حجم الصفقة (لوت)</label>
-                        <input type="number" class="form-input" placeholder="1.0" value="1.0">
+                        <input type="number" id="pip-lot" class="form-input" placeholder="1.0" value="1.0" step="0.01">
                     </div>
                     <div class="form-group">
                         <label class="form-label">عدد النقاط</label>
-                        <input type="number" class="form-input" placeholder="100" value="100">
+                        <input type="number" id="pip-count" class="form-input" placeholder="100" value="100">
                     </div>
-                    <button class="btn btn-primary w-full">احسب</button>
-                    <div class="mt-4 p-3 bg-darker rounded text-center">
-                        <div class="text-xs text-muted mb-1">قيمة الربح/الخسارة</div>
-                        <div class="text-2xl font-bold text-success">$1,000</div>
+                    <button class="btn btn-primary w-full" onclick="calculatePips()">
+                        <i class="fas fa-calculator"></i> احسب
+                    </button>
+                    <div class="calculator-result" id="pip-result" style="display: none;">
+                        <div class="calculator-result-label">قيمة الربح/الخسارة</div>
+                        <div class="calculator-result-value text-success" id="pip-value">--</div>
                     </div>
                 </div>
 
-                <!-- Pivot Points -->
-                <div class="calculator">
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+<!-- SECTION 29.3: PIVOT POINTS CALCULATOR (Working) -->
+<!-- ──────────────────────────────────────────────────────────────────────── -->
+                <div class="calculator" id="pivot">
                     <h3 class="font-bold mb-4 flex items-center gap-2">
                         <i class="fas fa-chart-line text-info"></i>
                         نقاط البايفوت
                     </h3>
                     <div class="form-group">
                         <label class="form-label">High</label>
-                        <input type="number" class="form-input" placeholder="2,950.00" step="0.01">
+                        <input type="number" id="pivot-high" class="form-input" placeholder="2950.00" step="0.01" value="2950">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Low</label>
-                        <input type="number" class="form-input" placeholder="2,920.00" step="0.01">
+                        <input type="number" id="pivot-low" class="form-input" placeholder="2920.00" step="0.01" value="2920">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Close</label>
-                        <input type="number" class="form-input" placeholder="2,942.00" step="0.01">
+                        <input type="number" id="pivot-close" class="form-input" placeholder="2942.00" step="0.01" value="2942">
                     </div>
-                    <button class="btn btn-primary w-full">احسب</button>
-                    <div class="mt-4 space-y-2">
-                        <div class="flex justify-between text-xs">
-                            <span class="text-danger">R3</span>
-                            <span class="font-mono">2,980.00</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-danger">R2</span>
-                            <span class="font-mono">2,965.00</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-danger">R1</span>
-                            <span class="font-mono">2,952.00</span>
-                        </div>
-                        <div class="flex justify-between text-xs font-bold">
-                            <span class="text-accent">PP</span>
-                            <span class="font-mono">2,937.33</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-success">S1</span>
-                            <span class="font-mono">2,924.00</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-success">S2</span>
-                            <span class="font-mono">2,909.00</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-success">S3</span>
-                            <span class="font-mono">2,894.00</span>
+                    <button class="btn btn-primary w-full" onclick="calculatePivot()">
+                        <i class="fas fa-calculator"></i> احسب
+                    </button>
+                    <div id="pivot-results" style="display: none;">
+                        <div class="mt-4 space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-danger font-semibold">R3</span>
+                                <span class="font-mono" id="r3">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-danger font-semibold">R2</span>
+                                <span class="font-mono" id="r2">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-danger font-semibold">R1</span>
+                                <span class="font-mono" id="r1">--</span>
+                            </div>
+                            <div class="flex justify-between font-bold">
+                                <span class="text-accent">PP</span>
+                                <span class="font-mono" id="pp">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-success font-semibold">S1</span>
+                                <span class="font-mono" id="s1">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-success font-semibold">S2</span>
+                                <span class="font-mono" id="s2">--</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-success font-semibold">S3</span>
+                                <span class="font-mono" id="s3">--</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1110,75 +1575,111 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="mt-12 py-8 border-t border-border" style="background: var(--bg-darker);">
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 30: EMAIL SUBSCRIPTION -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+    <section class="py-12" style="background: var(--bg-dark);">
         <div class="container-custom px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+            <div class="subscription-box">
+                <i class="fas fa-envelope text-5xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-2">اشترك في النشرة الإخبارية</h2>
+                <p class="mb-4">احصل على آخر التحليلات والأخبار مباشرة في بريدك الإلكتروني</p>
+                <form class="subscription-form" id="subscription-form" onsubmit="subscribeEmail(event)">
+                    <input 
+                        type="email" 
+                        id="email-input"
+                        placeholder="أدخل بريدك الإلكتروني" 
+                        required
+                    >
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> اشترك
+                    </button>
+                </form>
+                <p class="text-xs mt-3 opacity-80" id="subscription-message"></p>
+            </div>
+        </div>
+    </section>
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 31: FOOTER -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+    <footer>
+        <div class="container-custom px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-sm mb-8">
+                
+                <!-- About -->
                 <div>
-                    <h4 class="font-bold mb-4">عربي تريدر</h4>
+                    <h4 class="font-bold mb-4 text-white">عربي تريدر</h4>
                     <p class="text-muted text-xs leading-relaxed">
-                        منصة تحليلية شاملة للأسواق المالية. نقدم بيانات حية، تحليلات متقدمة، وأدوات احترافية.
+                        منصة تحليلية شاملة للأسواق المالية. نقدم بيانات حية، تحليلات متقدمة، وأدوات احترافية للمتداولين.
                     </p>
                 </div>
+                
+                <!-- Quick Links -->
                 <div>
-                    <h4 class="font-bold mb-4">روابط سريعة</h4>
+                    <h4 class="font-bold mb-4 text-white">روابط سريعة</h4>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="text-muted hover:text-accent transition">عن المنصة</a></li>
-                        <li><a href="#" class="text-muted hover:text-accent transition">الأسعار</a></li>
-                        <li><a href="#" class="text-muted hover:text-accent transition">API للمطورين</a></li>
-                        <li><a href="#" class="text-muted hover:text-accent transition">الشروط والأحكام</a></li>
+                        <li><a href="#about">عن المنصة</a></li>
+                        <li><a href="#pricing">الأسعار</a></li>
+                        <li><a href="#api">API للمطورين</a></li>
+                        <li><a href="#terms">الشروط والأحكام</a></li>
                     </ul>
                 </div>
+                
+                <!-- Help -->
                 <div>
-                    <h4 class="font-bold mb-4">المساعدة</h4>
+                    <h4 class="font-bold mb-4 text-white">المساعدة</h4>
                     <ul class="space-y-2 text-xs">
-                        <li><a href="#" class="text-muted hover:text-accent transition">الأسئلة الشائعة</a></li>
-                        <li><a href="#" class="text-muted hover:text-accent transition">مركز المساعدة</a></li>
-                        <li><a href="#" class="text-muted hover:text-accent transition">تواصل معنا</a></li>
-                        <li><a href="mailto:info@arabitrader.org" class="text-muted hover:text-accent transition">info@arabitrader.org</a></li>
+                        <li><a href="#faq">الأسئلة الشائعة</a></li>
+                        <li><a href="#support">مركز المساعدة</a></li>
+                        <li><a href="#contact">تواصل معنا</a></li>
+                        <li><a href="mailto:info@arabitrader.org">info@arabitrader.org</a></li>
                     </ul>
                 </div>
+                
+                <!-- Social -->
                 <div>
-                    <h4 class="font-bold mb-4">تابعنا</h4>
+                    <h4 class="font-bold mb-4 text-white">تابعنا</h4>
                     <div class="flex gap-3 mb-4">
-                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                        <a href="https://t.me/arabi_trader" target="_blank" class="w-10 h-10 bg-card flex items-center justify-center rounded hover:bg-accent transition">
                             <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                        <a href="https://x.com/arabi_trader" target="_blank" class="w-10 h-10 bg-card flex items-center justify-center rounded hover:bg-accent transition">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
-                            <i class="fab fa-youtube"></i>
+                        <a href="https://ar.tradingview.com/u/arabi.trader/" target="_blank" class="w-10 h-10 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                            <i class="fas fa-chart-line"></i>
                         </a>
-                        <a href="#" class="w-8 h-8 bg-card flex items-center justify-center rounded hover:bg-accent transition">
+                        <a href="https://www.linkedin.com/in/arabi.trader" target="_blank" class="w-10 h-10 bg-card flex items-center justify-center rounded hover:bg-accent transition">
                             <i class="fab fa-linkedin"></i>
                         </a>
                     </div>
-                    <p class="text-xs text-muted">حمّل التطبيق</p>
-                    <div class="flex gap-2 mt-2">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" class="h-8">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" class="h-8">
-                    </div>
                 </div>
+                
             </div>
             
-            <div class="mt-8 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center text-xs text-muted">
+            <!-- Bottom -->
+            <div class="pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center text-xs text-muted">
                 <p>© 2026 Arabi Trader. جميع الحقوق محفوظة.</p>
                 <p class="mt-2 md:mt-0">
-                    <span class="text-accent font-semibold">NADEEM DIGITAL CAPITAL LLC</span> • United States
+                    <span class="text-warning font-semibold">NADEEM DIGITAL CAPITAL LLC</span> • United States
                 </p>
             </div>
             
-            <div class="mt-4 p-4 bg-card rounded text-xs text-muted leading-relaxed">
-                <strong>إخلاء مسؤولية:</strong> التداول في الأسواق المالية ينطوي على مخاطر. المحتوى المقدم لأغراض تعليمية فقط ولا يشكل نصيحة استثمارية. استشر مستشاراً مالياً مرخصاً قبل اتخاذ قرارات تداول.
+            <!-- Disclaimer -->
+            <div class="mt-6 p-4 bg-card rounded text-xs text-muted leading-relaxed">
+                <strong class="text-warning">إخلاء مسؤولية:</strong> 
+                التداول في الأسواق المالية ينطوي على مخاطر. المحتوى المقدم لأغراض تعليمية فقط ولا يشكل نصيحة استثمارية. استشر مستشاراً مالياً مرخصاً قبل اتخاذ قرارات تداول.
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 32: JAVASCRIPT - REAL-TIME CLOCK -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
     <script>
-        // Update Time
-        function updateTime() {
+        // Real-Time Clock
+        function updateClock() {
             const now = new Date();
             const timeStr = now.toLocaleTimeString('ar-SA', { 
                 hour: '2-digit', 
@@ -1186,17 +1687,19 @@
                 second: '2-digit',
                 hour12: false 
             });
-            document.getElementById('current-time').textContent = timeStr;
+            document.getElementById('live-time').textContent = timeStr;
         }
-        updateTime();
-        setInterval(updateTime, 1000);
+        updateClock();
+        setInterval(updateClock, 1000);
 
-        // Load News from Airtable
-        const API_URL = 'https://arabitrader-api.nadeem-alqahwi.workers.dev';
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 33: JAVASCRIPT - NEWS API (Airtable Real Data) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        const AIRTABLE_API = 'https://arabitrader-api.nadeem-alqahwi.workers.dev';
 
         async function loadNews() {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(AIRTABLE_API);
                 const data = await response.json();
                 
                 if (data.success && data.articles && data.articles.length > 0) {
@@ -1213,7 +1716,7 @@
         function displayNews(articles) {
             const container = document.getElementById('news-list');
             
-            const html = articles.slice(0, 5).map(article => {
+            const html = articles.slice(0, 6).map(article => {
                 const img = article.imageThumbnail || article.image || '';
                 const date = article.date ? new Date(article.date).toLocaleDateString('ar-SA', { 
                     month: 'short', 
@@ -1223,7 +1726,7 @@
                 }) : '';
                 
                 return `
-                    <div class="news-card" onclick="window.open('${article.link}', '_blank')">
+                    <div class="news-card fade-in" onclick="window.open('${article.link}', '_blank')">
                         ${img ? `<img src="${img}" alt="${article.title}" class="news-img">` : ''}
                         <div class="news-content">
                             <div class="news-meta">
@@ -1243,41 +1746,161 @@
         function showEmptyNews() {
             document.getElementById('news-list').innerHTML = `
                 <div class="p-8 text-center text-muted">
-                    <i class="far fa-newspaper text-4xl mb-3"></i>
+                    <i class="far fa-newspaper text-4xl mb-3 opacity-50"></i>
                     <p>لا توجد أخبار متاحة حالياً</p>
+                    <button class="btn btn-primary mt-3" onclick="loadNews()">
+                        <i class="fas fa-sync"></i> إعادة المحاولة
+                    </button>
                 </div>
             `;
         }
 
-        // Simulated Market Data
-        function updateMarketOverview() {
-            const pairs = [
-                { symbol: 'XAU/USD', price: 2942.50, change: 0.45 },
-                { symbol: 'EUR/USD', price: 1.0847, change: -0.12 },
-                { symbol: 'GBP/USD', price: 1.2634, change: 0.28 },
-                { symbol: 'USD/JPY', price: 149.85, change: -0.34 },
-                { symbol: 'BTC/USD', price: 65420, change: 2.15 }
-            ];
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 34: JAVASCRIPT - LIVE MARKET DATA (Simulated for now) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        // Simulated Live Prices (يمكن استبدالها بـ API حقيقي لاحقاً)
+        function updateMarketPrices() {
+            // XAU/USD
+            const xauPrice = (2940 + Math.random() * 10).toFixed(2);
+            const xauChange = (Math.random() * 2 - 1).toFixed(2);
+            document.getElementById('xau-price').textContent = xauPrice;
+            document.getElementById('xau-change').textContent = (xauChange >= 0 ? '+' : '') + xauChange + '%';
+            document.getElementById('xau-change').className = xauChange >= 0 ? 'text-xs text-success' : 'text-xs text-danger';
             
-            const html = pairs.map(pair => {
-                const changeClass = pair.change >= 0 ? 'up' : 'down';
-                const changeSymbol = pair.change >= 0 ? '+' : '';
-                return `
-                    <div class="market-item">
-                        <span class="symbol">${pair.symbol}</span>
-                        <span class="price">${pair.price.toLocaleString()}</span>
-                        <span class="change ${changeClass}">${changeSymbol}${pair.change}%</span>
-                    </div>
-                `;
-            }).join('');
+            // EUR/USD
+            const eurPrice = (1.0840 + Math.random() * 0.01).toFixed(4);
+            const eurChange = (Math.random() * 0.5 - 0.25).toFixed(2);
+            document.getElementById('eur-price').textContent = eurPrice;
+            document.getElementById('eur-change').textContent = (eurChange >= 0 ? '+' : '') + eurChange + '%';
+            document.getElementById('eur-change').className = eurChange >= 0 ? 'text-xs text-success' : 'text-xs text-danger';
             
-            document.getElementById('market-overview').innerHTML = html;
+            // GBP/USD
+            const gbpPrice = (1.2630 + Math.random() * 0.01).toFixed(4);
+            const gbpChange = (Math.random() * 0.5 - 0.25).toFixed(2);
+            document.getElementById('gbp-price').textContent = gbpPrice;
+            document.getElementById('gbp-change').textContent = (gbpChange >= 0 ? '+' : '') + gbpChange + '%';
+            document.getElementById('gbp-change').className = gbpChange >= 0 ? 'text-xs text-success' : 'text-xs text-danger';
+        }
+        
+        updateMarketPrices();
+        setInterval(updateMarketPrices, 5000); // Update every 5 seconds
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 35: JAVASCRIPT - POSITION SIZE CALCULATOR (Working) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        function calculatePositionSize() {
+            const capital = parseFloat(document.getElementById('capital').value);
+            const risk = parseFloat(document.getElementById('risk').value);
+            const stopPips = parseFloat(document.getElementById('stop-pips').value);
+            
+            if (!capital || !risk || !stopPips) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const riskAmount = (capital * risk) / 100;
+            const lotSize = (riskAmount / (stopPips * 10)).toFixed(2);
+            
+            document.getElementById('position-result').style.display = 'block';
+            document.getElementById('position-value').textContent = lotSize + ' لوت';
         }
 
-        // Initialize
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 36: JAVASCRIPT - PIP CALCULATOR (Working) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        function calculatePips() {
+            const pipValue = parseFloat(document.getElementById('pip-pair').value);
+            const lot = parseFloat(document.getElementById('pip-lot').value);
+            const pips = parseFloat(document.getElementById('pip-count').value);
+            
+            if (!lot || !pips) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const value = (pipValue * lot * pips).toFixed(2);
+            
+            document.getElementById('pip-result').style.display = 'block';
+            document.getElementById('pip-value').textContent = '$' + value;
+        }
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 37: JAVASCRIPT - PIVOT POINTS CALCULATOR (Working) -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        function calculatePivot() {
+            const high = parseFloat(document.getElementById('pivot-high').value);
+            const low = parseFloat(document.getElementById('pivot-low').value);
+            const close = parseFloat(document.getElementById('pivot-close').value);
+            
+            if (!high || !low || !close) {
+                alert('يرجى ملء جميع الحقول');
+                return;
+            }
+            
+            const pp = ((high + low + close) / 3).toFixed(2);
+            const r1 = (2 * pp - low).toFixed(2);
+            const r2 = (pp + (high - low)).toFixed(2);
+            const r3 = (high + 2 * (pp - low)).toFixed(2);
+            const s1 = (2 * pp - high).toFixed(2);
+            const s2 = (pp - (high - low)).toFixed(2);
+            const s3 = (low - 2 * (high - pp)).toFixed(2);
+            
+            document.getElementById('pivot-results').style.display = 'block';
+            document.getElementById('pp').textContent = pp;
+            document.getElementById('r1').textContent = r1;
+            document.getElementById('r2').textContent = r2;
+            document.getElementById('r3').textContent = r3;
+            document.getElementById('s1').textContent = s1;
+            document.getElementById('s2').textContent = s2;
+            document.getElementById('s3').textContent = s3;
+        }
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 38: JAVASCRIPT - SMOOTH SCROLL NAVIGATION -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active state
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 39: JAVASCRIPT - EMAIL SUBSCRIPTION -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        function subscribeEmail(event) {
+            event.preventDefault();
+            const email = document.getElementById('email-input').value;
+            const messageEl = document.getElementById('subscription-message');
+            
+            // هنا يمكن إضافة API لحفظ الإيميل (مثل Mailchimp, SendGrid, أو Google Sheets)
+            // للتجربة، سنعرض رسالة نجاح فقط
+            
+            messageEl.textContent = '✓ تم الاشتراك بنجاح! سنرسل لك آخر التحديثات قريباً.';
+            messageEl.style.color = '#10b981';
+            document.getElementById('email-input').value = '';
+            
+            // يمكن إرسال البيانات لـ Google Sheets أو أي API
+            console.log('New subscriber:', email);
+        }
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 40: JAVASCRIPT - INITIALIZE ON PAGE LOAD -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', () => {
             loadNews();
-            updateMarketOverview();
+            updateMarketPrices();
         });
     </script>
 
